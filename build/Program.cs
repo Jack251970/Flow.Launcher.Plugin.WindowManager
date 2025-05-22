@@ -140,7 +140,7 @@ public class PublishTask : FrostingTask<BuildContext>
 
         context.ZipCompress(
             rootPath: srcDir,
-            outputPath: $"{dstDir}/WindowManager-{context.PublishVersion}.zip",
+            outputPath: $"{dstDir}/Window Manager-{context.PublishVersion}.zip",
             filePaths: files,
             level: 9
         );
