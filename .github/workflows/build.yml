@@ -55,5 +55,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: |
-            output/WindowManager*.zip
+            output/Window Manager*.zip
           compression-level: 0
