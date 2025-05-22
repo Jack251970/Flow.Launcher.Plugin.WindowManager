@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <PackageId>Flow.Launcher.Plugin.WindowManager</PackageId>
+    <Authors>Jack251970</Authors>
+    <PackageProjectUrl>https://github.com/Jack251970/Flow.Launcher.Plugin.WindowManager</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Jack251970/Flow.Launcher.Plugin.WindowManager</RepositoryUrl>
+    <PackageTags>flow-launcher flow-plugin</PackageTags>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <LangVersion>11</LangVersion>
+	  <Nullable>enable</Nullable>
+	  <TargetFramework>net7.0-windows</TargetFramework>
+	  <Version>2.3.0</Version>
+    <ReleaseOutputPath>./bin/Release</ReleaseOutputPath>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\Flow.Launcher.Plugin.WindowManager.xml</DocumentationFile>
+    <DebugType>none</DebugType>
+    <DebugSymbols>False</DebugSymbols>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>$(ReleaseOutputPath)</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="plugin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Languages\*.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\*.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Flow.Launcher.Plugin" Version="4.4.0" />
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+
+</Project>

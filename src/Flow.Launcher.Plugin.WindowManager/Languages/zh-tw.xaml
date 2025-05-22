@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--  General  -->
+    <system:String x:Key="flowlauncher_plugin_windowmanager_plugin_name">視窗管理器</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_plugin_description">輕鬆移動與調整應用程式視窗大小</system:String>
+
+</ResourceDictionary>
