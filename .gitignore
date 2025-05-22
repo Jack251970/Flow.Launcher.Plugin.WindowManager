@@ -6,7 +6,6 @@ output/
 *.bak
 ConsoleApp*/
 Ignore*
-WindowManager.db
 *.sqlite
 copy*.ps1
 QueryHandler.cs
