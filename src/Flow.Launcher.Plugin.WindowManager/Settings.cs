@@ -6,6 +6,8 @@ namespace Flow.Launcher.Plugin.WindowManager;
 
 public class Settings
 {
+    public int SizeIntervalPercentage { get; set; } = 10;
+
     public void RestoreToDefault()
     {
         var defaultSettings = new Settings();
