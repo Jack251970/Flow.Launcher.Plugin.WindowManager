@@ -25,6 +25,16 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     #endregion
 
+    #region Constructor
+
+    public WindowManager()
+    {
+        // Initialize the Virtual Desktop API
+        InitializeComObjects();
+    }
+
+    #endregion
+
     #region IPlugin Interface
 
     public List<Result> Query(Query query)
@@ -45,9 +55,6 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
         // Init main handle
         _mainHandle = new HWND(Application.Current.MainWindow.GetHandle());
-
-        // Initialize the Virtual Desktop API
-        InitializeComObjects();
     }
 
     #endregion
