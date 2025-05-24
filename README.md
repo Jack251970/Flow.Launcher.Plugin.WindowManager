@@ -53,12 +53,12 @@
 
 The default action keyword is `wm`, you can change it in the Flow Launcher.
 
-
 ## 📚 Reference
 
 - [ICONS](https://icons8.com/icons)
 - [ClipboardPlus](https://github.com/Jack251970/Flow.Launcher.Plugin.ClipboardPlus)
 - [Raycast](https://www.raycast.com/core-features/window-management)
+- [VirtualDesktop](https://github.com/Slion/VirtualDesktop)
 
 ## 📄 License
 
