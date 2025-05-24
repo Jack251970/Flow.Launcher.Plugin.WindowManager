@@ -8,4 +8,92 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_plugin_name">Window Manager</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_plugin_description">Easily move and resize application windows</system:String>
 
+    <!--  Main  -->
+    <system:String x:Key="flowlauncher_plugin_windowmanager_lefttop_title">Left top</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_lefttop_subtitle">Move foreground window to left top of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_center_title">Center</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_center_subtitle">Center foreground window on this screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximize_title">Maximize</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximize_subtitle">Maximize the foreground window</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_minimize_title">Minimize</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_minimize_subtitle">Minimize the foreground window</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_restore_title">Restore</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_restore_subtitle">Restore the foreground window</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveup_title">Move up</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveup_subtitle">Move the foreground window to the top of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movedown_title">Move down</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movedown_subtitle">Move the foreground window to the bottom of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveleft_title">Move left</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveleft_subtitle">Move the foreground window to the left of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveright_title">Move right</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveright_subtitle">Move the foreground window to the right of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximizeheight_title">Maximize height</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximizeheight_subtitle">Maximize the height of the foreground window</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximizewidth_title">Maximize width</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximizewidth_subtitle">Maximize the width of the foreground window</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_makesmaller_title">Make smaller</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_makesmaller_subtitle">Reduce the size of the foreground window</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_makelarger_title">Make larger</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_makelarger_subtitle">Increase the size of the foreground window</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_previousdesktop_title">Previous desktop</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_previousdesktop_subtitle">Switch to the previous virtual desktop</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_nextdesktop_title">Next desktop</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_nextdesktop_subtitle">Switch to the next virtual desktop</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movetopreviousdesktop_title">Move to previous desktop</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movetopreviousdesktop_subtitle">Move foreground window to the previous virtual desktop</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movetonextdesktop_title">Move to next desktop</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movetonextdesktop_subtitle">Move foreground window to the next virtual desktop</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_togglewindowpindesktops_title">Toggle window pin</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_togglewindowpindesktops_subtitle">Toggle pin status of foreground window across all virtual desktops</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_toggleapppindesktops_title">Toggle app pin</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_toggleapppindesktops_subtitle">Toggle pin status of all windows of the app across all virtual desktops</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_title">Previous screen</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_subtitle">Move foreground window to the previous screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_nextscreen_title">Next screen</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_nextscreen_subtitle">Move foreground window to the next screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_topleftquarter_title">Top left quarter</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_topleftquarter_subtitle">Resize foreground window to top left quarter of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_toprightquarter_title">Top right quarter</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_toprightquarter_subtitle">Resize foreground window to top right quarter of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomleftquarter_title">Bottom left quarter</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomleftquarter_subtitle">Resize foreground window to bottom left quarter of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomrightquarter_title">Bottom right quarter</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomrightquarter_subtitle">Resize foreground window to bottom right quarter of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_lefthalf_title">Left half</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_lefthalf_subtitle">Resize foreground window to the left half of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_righthalf_title">Right half</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_righthalf_subtitle">Resize foreground window to the right half of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_tophalf_title">Top half</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_tophalf_subtitle">Resize foreground window to the top half of its screen</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomhalf_title">Bottom half</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomhalf_subtitle">Resize foreground window to the bottom half of its screen</system:String>
+
 </ResourceDictionary>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Windows.Win32;
@@ -21,7 +22,284 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private readonly static string ClassName = nameof(WindowManager);
 
+    private readonly static bool _virtualDesktopSupported = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041);
+
     private static HWND _mainHandle = HWND.Null;
+
+    private readonly List<CommandType> _virtualDesktopTypes = new()
+    {
+        CommandType.PreviousDesktop,
+        CommandType.NextDesktop,
+        CommandType.MoveToPreviousDesktop,
+        CommandType.MoveToNextDesktop,
+        CommandType.ToggleWindowPinDesktops,
+        CommandType.ToggleAppPinDesktops
+    };
+
+    private readonly List<Command> _commands = new()
+    {
+        new()
+        {
+            Type = CommandType.LeftTop,
+            TitleKey = "flowlauncher_plugin_windowmanager_lefttop_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_lefttop_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(LeftTop),
+            Keyword = "Left top"
+        },
+        new()
+        {
+            Type = CommandType.Center,
+            TitleKey = "flowlauncher_plugin_windowmanager_center_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_center_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(Center),
+            Keyword = "Center"
+        },
+        new()
+        {
+            Type = CommandType.Maximize,
+            TitleKey = "flowlauncher_plugin_windowmanager_maximize_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_maximize_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(Maximize),
+            Keyword = "Maximize"
+        },
+        new()
+        {
+            Type = CommandType.Minimize,
+            TitleKey = "flowlauncher_plugin_windowmanager_minimize_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_minimize_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(Minimize),
+            Keyword = "Minimize"
+        },
+        new()
+        {
+            Type = CommandType.Restore,
+            TitleKey = "flowlauncher_plugin_windowmanager_restore_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_restore_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(Restore),
+            Keyword = "Restore"
+        },
+        new()
+        {
+            Type = CommandType.MoveUp,
+            TitleKey = "flowlauncher_plugin_windowmanager_moveup_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_moveup_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(MoveUp),
+            Keyword = "Move up"
+        },
+        new()
+        {
+            Type = CommandType.MoveDown,
+            TitleKey = "flowlauncher_plugin_windowmanager_movedown_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_movedown_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(MoveDown),
+            Keyword = "Move down"
+        },
+        new()
+        {
+            Type = CommandType.MoveLeft,
+            TitleKey = "flowlauncher_plugin_windowmanager_moveleft_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_moveleft_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(MoveLeft),
+            Keyword = "Move left"
+        },
+        new()
+        {
+            Type = CommandType.MoveRight,
+            TitleKey = "flowlauncher_plugin_windowmanager_moveright_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_moveright_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(MoveRight),
+            Keyword = "Move right"
+        },
+        new()
+        {
+            Type = CommandType.MaximizeHeight,
+            TitleKey = "flowlauncher_plugin_windowmanager_maximizeheight_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_maximizeheight_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(MaximizeHeight),
+            Keyword = "Maximize height"
+        },
+        new()
+        {
+            Type = CommandType.MaximizeWidth,
+            TitleKey = "flowlauncher_plugin_windowmanager_maximizewidth_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_maximizewidth_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(MaximizeWidth),
+            Keyword = "Maximize width"
+        },
+        new()
+        {
+            Type = CommandType.MakeSmaller,
+            TitleKey = "flowlauncher_plugin_windowmanager_makesmaller_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_makesmaller_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(MakeSmaller),
+            Keyword = "Make smaller"
+        },
+        new()
+        {
+            Type = CommandType.MakeLarger,
+            TitleKey = "flowlauncher_plugin_windowmanager_makelarger_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_makelarger_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(MakeLarger),
+            Keyword = "Make larger"
+        },
+        new()
+        {
+            Type = CommandType.PreviousDesktop,
+            TitleKey = "flowlauncher_plugin_windowmanager_previousdesktop_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_previousdesktop_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(PreviousDesktop),
+            Keyword = "Previous desktop"
+        },
+        new()
+        {
+            Type = CommandType.NextDesktop,
+            TitleKey = "flowlauncher_plugin_windowmanager_nextdesktop_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_nextdesktop_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(NextDesktop),
+            Keyword = "Next desktop"
+        },
+        new()
+        {
+            Type = CommandType.MoveToPreviousDesktop,
+            TitleKey = "flowlauncher_plugin_windowmanager_movetopreviousdesktop_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_movetopreviousdesktop_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(MoveToPreviousDesktop),
+            Keyword = "Move to previous desktop"
+        },
+        new()
+        {
+            Type = CommandType.MoveToNextDesktop,
+            TitleKey = "flowlauncher_plugin_windowmanager_movetonextdesktop_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_movetonextdesktop_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(MoveToNextDesktop),
+            Keyword = "Move to next desktop"
+        },
+        new()
+        {
+            Type = CommandType.ToggleWindowPinDesktops,
+            TitleKey = "flowlauncher_plugin_windowmanager_togglewindowpindesktops_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_togglewindowpindesktops_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(ToggleWindowPinDesktops),
+            Keyword = "Toggle window pin desktops"
+        },
+        new()
+        {
+            Type = CommandType.ToggleAppPinDesktops,
+            TitleKey = "flowlauncher_plugin_windowmanager_toggleapppindesktops_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_toggleapppindesktops_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(ToggleAppPinDesktops),
+            Keyword = "Toggle app pin desktops"
+        },
+        new()
+        {
+            Type = CommandType.PreviousScreen,
+            TitleKey = "flowlauncher_plugin_windowmanager_previousscreen_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_previousscreen_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(PreviousScreen),
+            Keyword = "Previous screen"
+        },
+        new()
+        {
+            Type = CommandType.NextScreen,
+            TitleKey = "flowlauncher_plugin_windowmanager_nextscreen_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_nextscreen_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(NextScreen),
+            Keyword = "Next screen"
+        },
+        new()
+        {
+            Type = CommandType.TopLeftQuarter,
+            TitleKey = "flowlauncher_plugin_windowmanager_topleftquarter_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_topleftquarter_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(TopLeftQuarter),
+            Keyword = "Top left quarter"
+        },
+        new()
+        {
+            Type = CommandType.TopRightQuarter,
+            TitleKey = "flowlauncher_plugin_windowmanager_toprightquarter_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_toprightquarter_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(TopRightQuarter),
+            Keyword = "Top right quarter"
+        },
+        new()
+        {
+            Type = CommandType.BottomLeftQuarter,
+            TitleKey = "flowlauncher_plugin_windowmanager_bottomleftquarter_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_bottomleftquarter_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(BottomLeftQuarter),
+            Keyword = "Bottom left quarter"
+        },
+        new()
+        {
+            Type = CommandType.BottomRightQuarter,
+            TitleKey = "flowlauncher_plugin_windowmanager_bottomrightquarter_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_bottomrightquarter_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(BottomRightQuarter),
+            Keyword = "Bottom right quarter"
+        },
+        new()
+        {
+            Type = CommandType.LeftHalf,
+            TitleKey = "flowlauncher_plugin_windowmanager_lefthalf_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_lefthalf_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(LeftHalf),
+            Keyword = "Left half"
+        },
+        new()
+        {
+            Type = CommandType.RightHalf,
+            TitleKey = "flowlauncher_plugin_windowmanager_righthalf_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_righthalf_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(RightHalf),
+            Keyword = "Right half"
+        },
+        new()
+        {
+            Type = CommandType.TopHalf,
+            TitleKey = "flowlauncher_plugin_windowmanager_tophalf_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_tophalf_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(TopHalf),
+            Keyword = "Top half"
+        },
+        new()
+        {
+            Type = CommandType.BottomHalf,
+            TitleKey = "flowlauncher_plugin_windowmanager_bottomhalf_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_bottomhalf_subtitle",
+            IcoPath = "Images/icon.png",
+            CommandAction = () => HandleForForegroundWindow(BottomHalf),
+            Keyword = "Bottom half"
+        }
+    };
 
     #endregion
 
@@ -29,8 +307,11 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     public WindowManager()
     {
-        // Initialize the Virtual Desktop API
-        InitializeComObjects();
+        if (_virtualDesktopSupported)
+        {
+            // Initialize the Virtual Desktop API
+            InitializeComObjects();
+        }
     }
 
     #endregion
@@ -39,10 +320,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     public List<Result> Query(Query query)
     {
-        var searchTerm = query.Search;
-        var results = new List<Result>();
-
-        return results;
+        return QueryList(query);
     }
 
     public void Init(PluginInitContext context)
@@ -111,9 +389,14 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     #endregion
 
-    #region Move & Resize
+    #region Move & Resize Actions
 
     // TODO: Change to Context.API.LogError.
+    private static void HandleForForegroundWindow(Action action)
+    {
+        action();
+    }
+
     private static void HandleForForegroundWindow(Action<HWND> action)
     {
         var timeOut = !SpinWait.SpinUntil(() => PInvoke.GetForegroundWindow() != _mainHandle, 1200);
@@ -236,7 +519,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         }
     }
 
-    private static void MoveLeftInScreen(HWND handle, RECT rect)
+    private static void MoveLeft(HWND handle, RECT rect)
     {
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var leftX = (int)screen.RectWork.X;
@@ -248,7 +531,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         }
     }
 
-    private static void MoveRightInScreen(HWND handle, RECT rect)
+    private static void MoveRight(HWND handle, RECT rect)
     {
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var rightX = (int)screen.RectWork.Right - rect.Width;
@@ -358,7 +641,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         nextDesktop.Switch();
     }
 
-    private static void MovePreviousDesktop(HWND handle)
+    private static void MoveToPreviousDesktop(HWND handle)
     {
         var desktops = VirtualDesktop.GetDesktops();
         if (desktops.Length <= 1)
@@ -377,7 +660,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         prevDesktop.Switch();
     }
 
-    private static void MoveNextDesktop(HWND handle)
+    private static void MoveToNextDesktop(HWND handle)
     {
         var desktops = VirtualDesktop.GetDesktops();
         if (desktops.Length <= 1)
@@ -571,6 +854,71 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             Context.API.LogInfo(ClassName, "Failed to move to bottom half");
         }
+    }
+
+    #endregion
+
+    #region Query List
+
+    private List<Result> QueryList(Query query)
+    {
+        var results = new List<Result>();
+        var searchTerm = query.Search;
+        if (string.IsNullOrEmpty(searchTerm))
+        {
+            foreach (var command in _commands)
+            {
+                if (_virtualDesktopTypes.Contains(command.Type) && !_virtualDesktopSupported) continue;
+
+                results.Add(new Result
+                {
+                    Title = Context.API.GetTranslation(command.TitleKey),
+                    SubTitle = Context.API.GetTranslation(command.SubtitleKey),
+                    IcoPath = command.IcoPath,
+                    Score = 0,
+                    Action = c =>
+                    {
+                        _ = Task.Run(() =>
+                        {
+                            Context.API.HideMainWindow();
+                            command.CommandAction.Invoke();
+                        });
+                        return true;
+                    }
+                });
+            }
+            return results;
+        }
+        else
+        {
+            foreach (var command in _commands)
+            {
+                if (_virtualDesktopTypes.Contains(command.Type) && !_virtualDesktopSupported) continue;
+
+                var match = Context.API.FuzzySearch(searchTerm, command.Keyword);
+
+                if (!match.IsSearchPrecisionScoreMet()) continue;
+                results.Add(new Result
+                {
+                    Title = Context.API.GetTranslation(command.TitleKey),
+                    AutoCompleteText = command.Keyword,
+                    SubTitle = Context.API.GetTranslation(command.SubtitleKey),
+                    IcoPath = command.IcoPath,
+                    Score = match.Score,
+                    Action = c =>
+                    {
+                        _ = Task.Run(() =>
+                        {
+                            Context.API.HideMainWindow();
+                            command.CommandAction.Invoke();
+                        });
+                        return true;
+                    }
+                });
+            }
+        }
+
+        return results;
     }
 
     #endregion

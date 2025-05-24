@@ -8,4 +8,92 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_plugin_name">視窗管理器</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_plugin_description">輕鬆移動與調整應用程式視窗大小</system:String>
 
+    <!--  Main  -->
+    <system:String x:Key="flowlauncher_plugin_windowmanager_lefttop_title">左上角</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_lefttop_subtitle">將前景視窗移動到其螢幕的左上角</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_center_title">置中</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_center_subtitle">將前景視窗置中顯示於此螢幕</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximize_title">最大化</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximize_subtitle">最大化前景視窗</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_minimize_title">最小化</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_minimize_subtitle">最小化前景視窗</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_restore_title">還原</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_restore_subtitle">還原前景視窗</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveup_title">上移</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveup_subtitle">將前景視窗移動到其螢幕頂部</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movedown_title">下移</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movedown_subtitle">將前景視窗移動到其螢幕底部</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveleft_title">左移</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveleft_subtitle">將前景視窗移動到其螢幕左側</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveright_title">右移</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_moveright_subtitle">將前景視窗移動到其螢幕右側</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximizeheight_title">最大化高度</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximizeheight_subtitle">最大化前景視窗的高度</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximizewidth_title">最大化寬度</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_maximizewidth_subtitle">最大化前景視窗的寬度</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_makesmaller_title">縮小</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_makesmaller_subtitle">縮小前景視窗的大小</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_makelarger_title">放大</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_makelarger_subtitle">放大前景視窗的大小</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_previousdesktop_title">上一個桌面</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_previousdesktop_subtitle">切換到上一個虛擬桌面</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_nextdesktop_title">下一個桌面</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_nextdesktop_subtitle">切換到下一個虛擬桌面</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movetopreviousdesktop_title">移動到上一個桌面</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movetopreviousdesktop_subtitle">將前景視窗移動到上一個虛擬桌面</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movetonextdesktop_title">移動到下一個桌面</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_movetonextdesktop_subtitle">將前景視窗移動到下一個虛擬桌面</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_togglewindowpindesktops_title">切換視窗固定</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_togglewindowpindesktops_subtitle">切換前景視窗在所有虛擬桌面上的固定狀態</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_toggleapppindesktops_title">切換應用固定</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_toggleapppindesktops_subtitle">切換應用所有視窗在所有虛擬桌面上的固定狀態</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_title">上一個螢幕</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_subtitle">將前景視窗移動到上一個螢幕</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_nextscreen_title">下一個螢幕</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_nextscreen_subtitle">將前景視窗移動到下一個螢幕</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_topleftquarter_title">左上四分之一</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_topleftquarter_subtitle">將前景視窗調整到螢幕左上四分之一大小</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_toprightquarter_title">右上四分之一</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_toprightquarter_subtitle">將前景視窗調整到螢幕右上四分之一大小</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomleftquarter_title">左下四分之一</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomleftquarter_subtitle">將前景視窗調整到螢幕左下四分之一大小</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomrightquarter_title">右下四分之一</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomrightquarter_subtitle">將前景視窗調整到螢幕右下四分之一大小</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_lefthalf_title">左半螢幕</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_lefthalf_subtitle">將前景視窗調整到螢幕左半部分</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_righthalf_title">右半螢幕</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_righthalf_subtitle">將前景視窗調整到螢幕右半部分</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_tophalf_title">上半螢幕</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_tophalf_subtitle">將前景視窗調整到螢幕上半部分</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomhalf_title">下半螢幕</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_bottomhalf_subtitle">將前景視窗調整到螢幕下半部分</system:String>
+
 </ResourceDictionary>
