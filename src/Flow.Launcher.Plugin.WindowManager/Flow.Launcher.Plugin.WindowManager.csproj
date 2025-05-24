@@ -9,8 +9,8 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <LangVersion>11</LangVersion>
 	  <Nullable>enable</Nullable>
-	  <TargetFramework>net7.0-windows</TargetFramework>
-	  <Version>1.0.0</Version>
+    <TargetFramework>net7.0-windows10.0.19041</TargetFramework>
+    <Version>1.0.0</Version>
     <ReleaseOutputPath>./bin/Release</ReleaseOutputPath>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
   </PropertyGroup>
@@ -46,13 +46,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Flow.Launcher.Plugin" Version="4.4.0" >
+    <PackageReference Include="Flow.Launcher.Plugin" Version="4.4.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Slions.VirtualDesktop" Version="6.9.2" />
+    <PackageReference Include="Slions.VirtualDesktop.WPF" Version="6.9.2" />
   </ItemGroup>
 
   <ItemGroup>
