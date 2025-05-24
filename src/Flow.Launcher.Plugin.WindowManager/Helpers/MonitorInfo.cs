@@ -7,7 +7,7 @@ using Windows.Win32.Foundation;
 using Windows.Win32.Graphics.Gdi;
 using Windows.Win32.UI.WindowsAndMessaging;
 
-namespace Flow.Launcher.Plugin.WindowManager.Helper;
+namespace Flow.Launcher.Plugin.WindowManager.Helpers;
 
 /// <summary>
 /// Contains full information about a display monitor.
