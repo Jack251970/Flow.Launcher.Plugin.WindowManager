@@ -1,1 +1,10 @@
-﻿
+﻿GetSystemMetrics
+EnumDisplayMonitors
+MonitorFromWindow
+GetMonitorInfo
+MONITORINFOEXW
+
+GetForegroundWindow
+GetWindowRect
+SetWindowPos
+ShowWindow
