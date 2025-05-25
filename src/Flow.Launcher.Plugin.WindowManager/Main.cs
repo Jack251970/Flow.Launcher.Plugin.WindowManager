@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.WindowsAndMessaging;
 using WindowsDesktop;
+using WindowsDesktop.Properties;
 
 namespace Flow.Launcher.Plugin.WindowManager;
 
@@ -357,9 +360,18 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     #region Initialization
 
+    private static string GetPluginDirectory()
+    {
+        return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
+    }
+
     private static void InitializeComObjects()
     {
-        VirtualDesktop.Configure();
+        VirtualDesktop.Configure(new VirtualDesktopConfiguration()
+        {
+            SaveCompiledAssembly = true,
+            CompiledAssemblySaveDirectory = new DirectoryInfo(Path.Combine(GetPluginDirectory(), "assemblies"))
+        });
 
         VirtualDesktop.Created += (_, desktop) =>
         {
