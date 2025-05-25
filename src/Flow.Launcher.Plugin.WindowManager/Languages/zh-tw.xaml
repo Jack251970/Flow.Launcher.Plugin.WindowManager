@@ -67,10 +67,10 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_toggleapppindesktops_subtitle">切換應用所有視窗在所有虛擬桌面上的固定狀態</system:String>
 
     <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_title">上一個螢幕</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_subtitle">將前景視窗移動到上一個螢幕</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_subtitle">將前景視窗移動到上一個螢幕的左上角</system:String>
 
     <system:String x:Key="flowlauncher_plugin_windowmanager_nextscreen_title">下一個螢幕</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_nextscreen_subtitle">將前景視窗移動到下一個螢幕</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_nextscreen_subtitle">將前景視窗移動到下一個螢幕的左上角</system:String>
 
     <system:String x:Key="flowlauncher_plugin_windowmanager_topleftquarter_title">左上四分之一</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_topleftquarter_subtitle">將前景視窗調整到螢幕左上四分之一大小</system:String>

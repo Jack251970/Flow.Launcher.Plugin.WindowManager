@@ -67,10 +67,10 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_toggleapppindesktops_subtitle">Toggle pin status of all windows of the app across all virtual desktops</system:String>
 
     <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_title">Previous screen</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_subtitle">Move foreground window to the previous screen</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_subtitle">Move foreground window to left top of previous screen</system:String>
 
     <system:String x:Key="flowlauncher_plugin_windowmanager_nextscreen_title">Next screen</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_nextscreen_subtitle">Move foreground window to the next screen</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_nextscreen_subtitle">Move foreground window to left top of next screen</system:String>
 
     <system:String x:Key="flowlauncher_plugin_windowmanager_topleftquarter_title">Top left quarter</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_topleftquarter_subtitle">Resize foreground window to top left quarter of its screen</system:String>
