@@ -588,8 +588,8 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
     private static void MakeSmaller(HWND handle, RECT rect)
     {
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
-        var intervalWidth = (int)Math.Round(screen.RectWork.Width * Settings.SizeIntervalPercentage / 100.0);
-        var intervalHeight = (int)Math.Round(screen.RectWork.Height * Settings.SizeIntervalPercentage / 100.0);
+        var intervalWidth = (int)Math.Round(screen.RectWork.Width * Settings.SizeInterval / 100.0);
+        var intervalHeight = (int)Math.Round(screen.RectWork.Height * Settings.SizeInterval / 100.0);
 
         var width = rect.Width - intervalWidth;
         var height = rect.Height - intervalHeight;
@@ -609,8 +609,8 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
     private static void MakeLarger(HWND handle, RECT rect)
     {
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
-        var intervalWidth = (int)Math.Round(screen.RectWork.Width * Settings.SizeIntervalPercentage / 100.0);
-        var intervalHeight = (int)Math.Round(screen.RectWork.Height * Settings.SizeIntervalPercentage / 100.0);
+        var intervalWidth = (int)Math.Round(screen.RectWork.Width * Settings.SizeInterval / 100.0);
+        var intervalHeight = (int)Math.Round(screen.RectWork.Height * Settings.SizeInterval / 100.0);
 
         var width = rect.Width + intervalWidth;
         var height = rect.Height + intervalHeight;
@@ -963,7 +963,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
     public Control CreateSettingPanel()
     {
         Context.API.LogDebug(ClassName, $"Settings Panel: {Settings}");
-        return null!;
+        return new SettingsPanel(Settings);
     }
 
     #endregion

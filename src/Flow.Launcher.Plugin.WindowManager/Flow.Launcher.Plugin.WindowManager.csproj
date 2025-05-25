@@ -13,6 +13,7 @@
     <Version>1.0.0</Version>
     <ReleaseOutputPath>./bin/Release</ReleaseOutputPath>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -53,12 +54,23 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <!-- ModernWpfUI v0.9.5 introduced WinRT changes that causes Notification platform unavailable error on some machines -->
+    <!-- https://github.com/Flow-Launcher/Flow.Launcher/issues/1772#issuecomment-1502440801 -->
+    <PackageReference Include="ModernWpfUI" Version="0.9.4">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Slions.VirtualDesktop" Version="6.9.2" />
     <PackageReference Include="Slions.VirtualDesktop.WPF" Version="6.9.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SettingsPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -96,4 +96,7 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_bottomhalf_title">下半屏</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_bottomhalf_subtitle">将前景窗口调整到屏幕下半部分</system:String>
 
+    <!--  Settings  -->
+    <system:String x:Key="flowlauncher_plugin_windowmanager_size_interval">窗口大小调整间隔：</system:String>
+
 </ResourceDictionary>

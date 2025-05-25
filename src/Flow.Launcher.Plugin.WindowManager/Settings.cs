@@ -4,9 +4,21 @@ using System.Text.Json.Serialization;
 
 namespace Flow.Launcher.Plugin.WindowManager;
 
-public class Settings
+public class Settings : BaseModel
 {
-    public int SizeIntervalPercentage { get; set; } = 10;
+    private double _sizeInterval = 10;
+    public double SizeInterval
+    {
+        get => _sizeInterval;
+        set
+        {
+            if ((value > 0 || value < 100) && _sizeInterval != value)
+            {
+                _sizeInterval = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
     public void RestoreToDefault()
     {
