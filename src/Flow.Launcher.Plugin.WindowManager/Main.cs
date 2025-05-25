@@ -18,13 +18,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     internal static Settings Settings { get; private set; } = null!;
 
+    private static HWND MainHandle { get; set; } = HWND.Null;
+
     #region Private Fileds
 
     private readonly static string ClassName = nameof(WindowManager);
 
     private readonly static bool _virtualDesktopSupported = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041);
-
-    private static HWND _mainHandle = HWND.Null;
 
     private readonly List<CommandType> _virtualDesktopTypes = new()
     {
@@ -331,8 +331,15 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         Settings = context.API.LoadSettingJsonStorage<Settings>();
         Context.API.LogDebug(ClassName, $"Init: {Settings}");
 
-        // Init main handle
-        _mainHandle = new HWND(Application.Current.MainWindow.GetHandle());
+        // Log debug information
+        if (_virtualDesktopSupported)
+        {
+            Context.API.LogDebug(ClassName, "Virtual Desktop API is supported and initialized.");
+        }
+        else
+        {
+            Context.API.LogDebug(ClassName, "Virtual Desktop API is not supported.");
+        }
     }
 
     #endregion
@@ -399,7 +406,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void HandleForForegroundWindow(Action<HWND> action)
     {
-        var timeOut = !SpinWait.SpinUntil(() => PInvoke.GetForegroundWindow() != _mainHandle, 1200);
+        // Note: This cannot be called from constructor or Init method since Application.Current.MainWindow is not yet initialized
+        if (MainHandle.IsNull)
+        {
+            MainHandle = Win32Helper.GetWindowHandle(Application.Current.MainWindow, true);
+        }
+
+        var timeOut = !SpinWait.SpinUntil(() => PInvoke.GetForegroundWindow() != MainHandle, 1200);
         if (timeOut)
         {
             Context.API.LogInfo(ClassName, "Timeout waiting for foreground window to change from main handle");
@@ -418,7 +431,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void HandleForForegroundWindow(Action<HWND, RECT> action)
     {
-        var timeOut = !SpinWait.SpinUntil(() => PInvoke.GetForegroundWindow() != _mainHandle, 1200);
+        // Note: This cannot be called from constructor or Init method since Application.Current.MainWindow is not yet initialized
+        if (MainHandle.IsNull)
+        {
+            MainHandle = Win32Helper.GetWindowHandle(Application.Current.MainWindow, true);
+        }
+
+        var timeOut = !SpinWait.SpinUntil(() => PInvoke.GetForegroundWindow() != MainHandle, 1200);
         if (timeOut)
         {
             Context.API.LogInfo(ClassName, "Timeout waiting for foreground window to change from main handle");
