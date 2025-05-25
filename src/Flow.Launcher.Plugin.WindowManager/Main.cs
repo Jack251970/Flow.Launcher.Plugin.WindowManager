@@ -427,7 +427,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         // Note: This cannot be called from constructor or Init method since Application.Current.MainWindow is not yet initialized
         if (MainHandle.IsNull)
         {
-            MainHandle = Win32Helper.GetWindowHandle(Application.Current.MainWindow, true);
+            Application.Current.Dispatcher.Invoke(() => MainHandle = Win32Helper.GetWindowHandle(Application.Current.MainWindow));
         }
 
         var timeOut = !SpinWait.SpinUntil(() => PInvoke.GetForegroundWindow() != MainHandle, 1200);
@@ -452,7 +452,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         // Note: This cannot be called from constructor or Init method since Application.Current.MainWindow is not yet initialized
         if (MainHandle.IsNull)
         {
-            MainHandle = Win32Helper.GetWindowHandle(Application.Current.MainWindow, true);
+            Application.Current.Dispatcher.Invoke(() => MainHandle = Win32Helper.GetWindowHandle(Application.Current.MainWindow));
         }
 
         var timeOut = !SpinWait.SpinUntil(() => PInvoke.GetForegroundWindow() != MainHandle, 1200);
