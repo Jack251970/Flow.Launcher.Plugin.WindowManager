@@ -8,11 +8,17 @@
 
 ## ⭐ Features
 
-- Minimize & Maximize & Restore windows
-- Move windows to the left / right / center / top / bottom of the screen
+- Move window to the left top of the screen
+- Center window on the screen
+- Minimize / Maximize / Restore windows
+- Move windows to the left / right / top / bottom of the screen
+- Maximize height / width of the windows
+- Make windows smaller / larger
 - Resize windows to half / quarter of the screen
 - Move windows to the next / previous screen
-- Move windows to the next / previous virtual desktop
+- Switch to the next / previous virtual desktop (Windows 10, 11)
+- Move windows to the next / previous virtual desktop (Windows 10, 11)
+- Toggle pin status of windows / apps across all virtual desktops (Windows 10, 11)
 
 ## 🖼️ Screenshots
 
