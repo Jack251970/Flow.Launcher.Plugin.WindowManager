@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Flow.Launcher.Plugin.WindowManager.Models;
 
@@ -12,7 +13,7 @@ public class Command
 
     public required string IcoPath { get; init; }
 
-    public required Action CommandAction { get; init; }
+    public required Func<Task> CommandAction { get; init; }
 
     public required string Keyword { get; set; }
 }

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using Windows.Win32;
 using Windows.Win32.Foundation;
@@ -18,16 +16,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     internal static Settings Settings { get; private set; } = null!;
 
-    private static HWND MainHandle { get; set; } = HWND.Null;
-
-    private static bool VirtualDesktopEnabled { get; set; } = false;
-
     #region Private Fileds
 
     private readonly static string ClassName = nameof(WindowManager);
 
     private readonly static bool _virtualDesktopSupported = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041);
     private readonly Exception? _virtualDesktopException = null;
+    private static bool _virtualDesktopEnabled = false;
 
     private readonly List<CommandType> _virtualDesktopTypes = new()
     {
@@ -47,7 +42,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_lefttop_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_lefttop_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(LeftTop),
+            CommandAction = () => HandleForForegroundWindowAsync(LeftTop),
             Keyword = "Left top"
         },
         new()
@@ -56,7 +51,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_center_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_center_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(Center),
+            CommandAction = () => HandleForForegroundWindowAsync(Center),
             Keyword = "Center"
         },
         new()
@@ -65,7 +60,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_maximize_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_maximize_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(Maximize),
+            CommandAction = () => HandleForForegroundWindowAsync(Maximize),
             Keyword = "Maximize"
         },
         new()
@@ -74,7 +69,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_minimize_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_minimize_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(Minimize),
+            CommandAction = () => HandleForForegroundWindowAsync(Minimize),
             Keyword = "Minimize"
         },
         new()
@@ -83,7 +78,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_restore_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_restore_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(Restore),
+            CommandAction = () => HandleForForegroundWindowAsync(Restore),
             Keyword = "Restore"
         },
         new()
@@ -92,7 +87,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_moveup_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_moveup_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(MoveUp),
+            CommandAction = () => HandleForForegroundWindowAsync(MoveUp),
             Keyword = "Move up"
         },
         new()
@@ -101,7 +96,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_movedown_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_movedown_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(MoveDown),
+            CommandAction = () => HandleForForegroundWindowAsync(MoveDown),
             Keyword = "Move down"
         },
         new()
@@ -110,7 +105,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_moveleft_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_moveleft_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(MoveLeft),
+            CommandAction = () => HandleForForegroundWindowAsync(MoveLeft),
             Keyword = "Move left"
         },
         new()
@@ -119,7 +114,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_moveright_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_moveright_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(MoveRight),
+            CommandAction = () => HandleForForegroundWindowAsync(MoveRight),
             Keyword = "Move right"
         },
         new()
@@ -128,7 +123,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_maximizeheight_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_maximizeheight_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(MaximizeHeight),
+            CommandAction = () => HandleForForegroundWindowAsync(MaximizeHeight),
             Keyword = "Maximize height"
         },
         new()
@@ -137,7 +132,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_maximizewidth_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_maximizewidth_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(MaximizeWidth),
+            CommandAction = () => HandleForForegroundWindowAsync(MaximizeWidth),
             Keyword = "Maximize width"
         },
         new()
@@ -146,7 +141,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_makesmaller_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_makesmaller_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(MakeSmaller),
+            CommandAction = () => HandleForForegroundWindowAsync(MakeSmaller),
             Keyword = "Make smaller"
         },
         new()
@@ -155,7 +150,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_makelarger_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_makelarger_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(MakeLarger),
+            CommandAction = () => HandleForForegroundWindowAsync(MakeLarger),
             Keyword = "Make larger"
         },
         new()
@@ -164,7 +159,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_previousdesktop_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_previousdesktop_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(PreviousDesktop),
+            CommandAction = () => HandleForForegroundWindowAsync(PreviousDesktop),
             Keyword = "Previous desktop"
         },
         new()
@@ -173,7 +168,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_nextdesktop_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_nextdesktop_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(NextDesktop),
+            CommandAction = () => HandleForForegroundWindowAsync(NextDesktop),
             Keyword = "Next desktop"
         },
         new()
@@ -182,7 +177,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_movetopreviousdesktop_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_movetopreviousdesktop_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(MoveToPreviousDesktop),
+            CommandAction = () => HandleForForegroundWindowAsync(MoveToPreviousDesktop),
             Keyword = "Move to previous desktop"
         },
         new()
@@ -191,7 +186,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_movetonextdesktop_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_movetonextdesktop_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(MoveToNextDesktop),
+            CommandAction = () => HandleForForegroundWindowAsync(MoveToNextDesktop),
             Keyword = "Move to next desktop"
         },
         new()
@@ -200,7 +195,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_togglewindowpindesktops_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_togglewindowpindesktops_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(ToggleWindowPinDesktops),
+            CommandAction = () => HandleForForegroundWindowAsync(ToggleWindowPinDesktops),
             Keyword = "Toggle window pin desktops"
         },
         new()
@@ -209,7 +204,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_toggleapppindesktops_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_toggleapppindesktops_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(ToggleAppPinDesktops),
+            CommandAction = () => HandleForForegroundWindowAsync(ToggleAppPinDesktops),
             Keyword = "Toggle app pin desktops"
         },
         new()
@@ -218,7 +213,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_previousscreen_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_previousscreen_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(PreviousScreen),
+            CommandAction = () => HandleForForegroundWindowAsync(PreviousScreen),
             Keyword = "Previous screen"
         },
         new()
@@ -227,7 +222,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_nextscreen_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_nextscreen_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(NextScreen),
+            CommandAction = () => HandleForForegroundWindowAsync(NextScreen),
             Keyword = "Next screen"
         },
         new()
@@ -236,7 +231,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_topleftquarter_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_topleftquarter_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(TopLeftQuarter),
+            CommandAction = () => HandleForForegroundWindowAsync(TopLeftQuarter),
             Keyword = "Top left quarter"
         },
         new()
@@ -245,7 +240,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_toprightquarter_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_toprightquarter_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(TopRightQuarter),
+            CommandAction = () => HandleForForegroundWindowAsync(TopRightQuarter),
             Keyword = "Top right quarter"
         },
         new()
@@ -254,7 +249,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_bottomleftquarter_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_bottomleftquarter_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(BottomLeftQuarter),
+            CommandAction = () => HandleForForegroundWindowAsync(BottomLeftQuarter),
             Keyword = "Bottom left quarter"
         },
         new()
@@ -263,7 +258,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_bottomrightquarter_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_bottomrightquarter_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(BottomRightQuarter),
+            CommandAction = () => HandleForForegroundWindowAsync(BottomRightQuarter),
             Keyword = "Bottom right quarter"
         },
         new()
@@ -272,7 +267,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_lefthalf_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_lefthalf_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(LeftHalf),
+            CommandAction = () => HandleForForegroundWindowAsync(LeftHalf),
             Keyword = "Left half"
         },
         new()
@@ -281,7 +276,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_righthalf_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_righthalf_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(RightHalf),
+            CommandAction = () => HandleForForegroundWindowAsync(RightHalf),
             Keyword = "Right half"
         },
         new()
@@ -290,7 +285,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_tophalf_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_tophalf_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(TopHalf),
+            CommandAction = () => HandleForForegroundWindowAsync(TopHalf),
             Keyword = "Top half"
         },
         new()
@@ -299,7 +294,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             TitleKey = "flowlauncher_plugin_windowmanager_bottomhalf_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_bottomhalf_subtitle",
             IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindow(BottomHalf),
+            CommandAction = () => HandleForForegroundWindowAsync(BottomHalf),
             Keyword = "Bottom half"
         }
     };
@@ -316,6 +311,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             try
             {
                 InitializeComObjects();
+                _virtualDesktopEnabled = true;
             }
             catch (Exception ex)
             {
@@ -342,21 +338,18 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         Context.API.LogDebug(ClassName, $"Init: {Settings}");
 
         // Log debug information
-        if (_virtualDesktopSupported)
+        if (!_virtualDesktopSupported)
         {
-            if (_virtualDesktopException != null)
-            {
-                VirtualDesktopEnabled = true;
-                Context.API.LogDebug(ClassName, "Virtual Desktop API is supported and initialized.");
-            }
-            else
-            {
-                Context.API.LogException(ClassName, "Virtual Desktop API is supported but failed to initialize.", _virtualDesktopException);
-            }
+            Context.API.LogDebug(ClassName, "Virtual Desktop API is not supported.");
+            
+        }
+        else if(_virtualDesktopException == null)
+        {
+            Context.API.LogDebug(ClassName, "Virtual Desktop API is supported and initialized.");
         }
         else
         {
-            Context.API.LogDebug(ClassName, "Virtual Desktop API is not supported.");
+            Context.API.LogException(ClassName, "Virtual Desktop API is supported but failed to initialize.", _virtualDesktopException);
         }
     }
 
@@ -417,28 +410,22 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
     #region Move & Resize Actions
 
     // TODO: Change to Context.API.LogError.
-    private static void HandleForForegroundWindow(Action action)
+    private static async Task HandleForForegroundWindowAsync(Action action)
     {
         action();
+
+        await Task.CompletedTask;
     }
 
-    private static void HandleForForegroundWindow(Action<HWND> action)
+    private static async Task HandleForForegroundWindowAsync(Action<HWND> action)
     {
-        // Note: This cannot be called from constructor or Init method since Application.Current.MainWindow is not yet initialized
-        if (MainHandle.IsNull)
+        while (Context.API.IsMainWindowVisible())
         {
-            Application.Current.Dispatcher.Invoke(() => MainHandle = Win32Helper.GetWindowHandle(Application.Current.MainWindow));
-        }
-
-        var timeOut = !SpinWait.SpinUntil(() => PInvoke.GetForegroundWindow() != MainHandle, 1200);
-        if (timeOut)
-        {
-            Context.API.LogInfo(ClassName, "Timeout waiting for foreground window to change from main handle");
-            return;
+            await Task.Delay(100);
         }
 
         var handle = PInvoke.GetForegroundWindow();
-        if (handle == HWND.Null)
+        if (handle.IsNull)
         {
             Context.API.LogInfo(ClassName, "Failed to find foreground window");
             return;
@@ -447,23 +434,15 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         action(handle);
     }
 
-    private static void HandleForForegroundWindow(Action<HWND, RECT> action)
+    private static async Task HandleForForegroundWindowAsync(Action<HWND, RECT> action)
     {
-        // Note: This cannot be called from constructor or Init method since Application.Current.MainWindow is not yet initialized
-        if (MainHandle.IsNull)
+        while (Context.API.IsMainWindowVisible())
         {
-            Application.Current.Dispatcher.Invoke(() => MainHandle = Win32Helper.GetWindowHandle(Application.Current.MainWindow));
-        }
-
-        var timeOut = !SpinWait.SpinUntil(() => PInvoke.GetForegroundWindow() != MainHandle, 1200);
-        if (timeOut)
-        {
-            Context.API.LogInfo(ClassName, "Timeout waiting for foreground window to change from main handle");
-            return;
+            await Task.Delay(100);
         }
 
         var handle = PInvoke.GetForegroundWindow();
-        if (handle == HWND.Null)
+        if (handle.IsNull)
         {
             Context.API.LogInfo(ClassName, "Failed to find foreground window");
             return;
@@ -905,7 +884,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             foreach (var command in _commands)
             {
-                if (_virtualDesktopTypes.Contains(command.Type) && !VirtualDesktopEnabled) continue;
+                if (_virtualDesktopTypes.Contains(command.Type) && !_virtualDesktopEnabled) continue;
 
                 results.Add(new Result
                 {
@@ -915,10 +894,10 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
                     Score = 0,
                     Action = c =>
                     {
-                        _ = Task.Run(() =>
+                        _ = Task.Run(async () =>
                         {
                             Context.API.HideMainWindow();
-                            command.CommandAction.Invoke();
+                            await command.CommandAction();
                         });
                         return true;
                     }
@@ -930,7 +909,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             foreach (var command in _commands)
             {
-                if (_virtualDesktopTypes.Contains(command.Type) && !VirtualDesktopEnabled) continue;
+                if (_virtualDesktopTypes.Contains(command.Type) && !_virtualDesktopEnabled) continue;
 
                 var match = Context.API.FuzzySearch(searchTerm, command.Keyword);
 
@@ -944,10 +923,10 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
                     Score = match.Score,
                     Action = c =>
                     {
-                        _ = Task.Run(() =>
+                        _ = Task.Run(async () =>
                         {
                             Context.API.HideMainWindow();
-                            command.CommandAction.Invoke();
+                            await command.CommandAction();
                         });
                         return true;
                     }
