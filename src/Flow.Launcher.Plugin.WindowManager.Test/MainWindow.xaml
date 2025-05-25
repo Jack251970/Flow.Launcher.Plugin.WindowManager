@@ -1,0 +1,14 @@
+﻿<Window
+    x:Class="Flow.Launcher.Plugin.WindowManager.Test.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Flow.Launcher.Plugin.WindowManager.Test"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="400"
+    Height="915"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <StackPanel x:Name="MainPanel" />
+</Window>
