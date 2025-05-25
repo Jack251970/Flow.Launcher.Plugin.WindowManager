@@ -20,11 +20,14 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static HWND MainHandle { get; set; } = HWND.Null;
 
+    private static bool VirtualDesktopEnabled { get; set; } = false;
+
     #region Private Fileds
 
     private readonly static string ClassName = nameof(WindowManager);
 
     private readonly static bool _virtualDesktopSupported = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041);
+    private readonly Exception? _virtualDesktopException = null;
 
     private readonly List<CommandType> _virtualDesktopTypes = new()
     {
@@ -310,7 +313,14 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (_virtualDesktopSupported)
         {
             // Initialize the Virtual Desktop API
-            InitializeComObjects();
+            try
+            {
+                InitializeComObjects();
+            }
+            catch (Exception ex)
+            {
+                _virtualDesktopException = ex;
+            }
         }
     }
 
@@ -334,7 +344,15 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         // Log debug information
         if (_virtualDesktopSupported)
         {
-            Context.API.LogDebug(ClassName, "Virtual Desktop API is supported and initialized.");
+            if (_virtualDesktopException != null)
+            {
+                VirtualDesktopEnabled = true;
+                Context.API.LogDebug(ClassName, "Virtual Desktop API is supported and initialized.");
+            }
+            else
+            {
+                Context.API.LogException(ClassName, "Virtual Desktop API is supported but failed to initialize.", _virtualDesktopException);
+            }
         }
         else
         {
@@ -887,7 +905,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             foreach (var command in _commands)
             {
-                if (_virtualDesktopTypes.Contains(command.Type) && !_virtualDesktopSupported) continue;
+                if (_virtualDesktopTypes.Contains(command.Type) && !VirtualDesktopEnabled) continue;
 
                 results.Add(new Result
                 {
@@ -912,7 +930,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             foreach (var command in _commands)
             {
-                if (_virtualDesktopTypes.Contains(command.Type) && !_virtualDesktopSupported) continue;
+                if (_virtualDesktopTypes.Contains(command.Type) && !VirtualDesktopEnabled) continue;
 
                 var match = Context.API.FuzzySearch(searchTerm, command.Keyword);
 
