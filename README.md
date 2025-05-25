@@ -56,6 +56,35 @@
 
 The default action keyword is `wm`, you can change it in the Flow Launcher.
 
+### 1. Config Administrator Mode (Optional)
+
+This plugin requires administrator privileges to:
+
+* Move and resize elevated windows
+
+For full functionality, we recommend running Flow Launcher as administrator during automatic launches:
+
+* Exit Flow Launcher
+* Run Flow Launcher as administrator
+* Open setting window and navigate to `General` page
+* Enable `Use logon task instead of task entry for faster startup experience`
+* Disable `Start Flow Launcher on system startup`
+* Enable `Start Flow Launcher on system startup`
+
+Then we can verify if it succeeded:
+
+* Open `Task Scheduler`
+* Find the logon task with name `Flow.Launcher Startup`
+* Check if `Security options` -> `Run with highest privileges` is on
+
+> [!WARNING]
+> Running as administrator may launch other applications with elevated privileges without UAC prompts.
+> So please use this with caution.
+
+### 2. Uninstall Programs
+
+Use the action keyword to search for commands in Flow Launcher and click any result to execute it.
+
 ## 📚 Reference
 
 - [ICONS](https://icons8.com/icons)
