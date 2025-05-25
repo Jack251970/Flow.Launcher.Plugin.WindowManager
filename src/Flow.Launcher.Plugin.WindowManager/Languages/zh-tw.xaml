@@ -48,24 +48,6 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_makelarger_title">放大</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_makelarger_subtitle">放大前景視窗的大小</system:String>
 
-    <system:String x:Key="flowlauncher_plugin_windowmanager_previousdesktop_title">上一個桌面</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_previousdesktop_subtitle">切換到上一個虛擬桌面</system:String>
-
-    <system:String x:Key="flowlauncher_plugin_windowmanager_nextdesktop_title">下一個桌面</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_nextdesktop_subtitle">切換到下一個虛擬桌面</system:String>
-
-    <system:String x:Key="flowlauncher_plugin_windowmanager_movetopreviousdesktop_title">移動到上一個桌面</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_movetopreviousdesktop_subtitle">將前景視窗移動到上一個虛擬桌面</system:String>
-
-    <system:String x:Key="flowlauncher_plugin_windowmanager_movetonextdesktop_title">移動到下一個桌面</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_movetonextdesktop_subtitle">將前景視窗移動到下一個虛擬桌面</system:String>
-
-    <system:String x:Key="flowlauncher_plugin_windowmanager_togglewindowpindesktops_title">切換視窗固定</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_togglewindowpindesktops_subtitle">切換前景視窗在所有虛擬桌面上的固定狀態</system:String>
-
-    <system:String x:Key="flowlauncher_plugin_windowmanager_toggleapppindesktops_title">切換應用固定</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_toggleapppindesktops_subtitle">切換應用所有視窗在所有虛擬桌面上的固定狀態</system:String>
-
     <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_title">上一個螢幕</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_subtitle">將前景視窗移動到上一個螢幕的左上角</system:String>
 

@@ -1,15 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.WindowsAndMessaging;
-using WindowsDesktop;
-using WindowsDesktop.Properties;
 
 namespace Flow.Launcher.Plugin.WindowManager;
 
@@ -22,20 +18,6 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
     #region Private Fileds
 
     private readonly static string ClassName = nameof(WindowManager);
-
-    private readonly static bool _virtualDesktopSupported = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041);
-    private readonly Exception? _virtualDesktopException = null;
-    private static bool _virtualDesktopEnabled = false;
-
-    private readonly List<CommandType> _virtualDesktopTypes = new()
-    {
-        CommandType.PreviousDesktop,
-        CommandType.NextDesktop,
-        CommandType.MoveToPreviousDesktop,
-        CommandType.MoveToNextDesktop,
-        CommandType.ToggleWindowPinDesktops,
-        CommandType.ToggleAppPinDesktops
-    };
 
     private readonly List<Command> _commands = new()
     {
@@ -158,60 +140,6 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         },
         new()
         {
-            Type = CommandType.PreviousDesktop,
-            TitleKey = "flowlauncher_plugin_windowmanager_previousdesktop_title",
-            SubtitleKey = "flowlauncher_plugin_windowmanager_previousdesktop_subtitle",
-            IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindowAsync(PreviousDesktop),
-            Keyword = "Previous desktop"
-        },
-        new()
-        {
-            Type = CommandType.NextDesktop,
-            TitleKey = "flowlauncher_plugin_windowmanager_nextdesktop_title",
-            SubtitleKey = "flowlauncher_plugin_windowmanager_nextdesktop_subtitle",
-            IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindowAsync(NextDesktop),
-            Keyword = "Next desktop"
-        },
-        new()
-        {
-            Type = CommandType.MoveToPreviousDesktop,
-            TitleKey = "flowlauncher_plugin_windowmanager_movetopreviousdesktop_title",
-            SubtitleKey = "flowlauncher_plugin_windowmanager_movetopreviousdesktop_subtitle",
-            IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindowAsync(MoveToPreviousDesktop),
-            Keyword = "Move to previous desktop"
-        },
-        new()
-        {
-            Type = CommandType.MoveToNextDesktop,
-            TitleKey = "flowlauncher_plugin_windowmanager_movetonextdesktop_title",
-            SubtitleKey = "flowlauncher_plugin_windowmanager_movetonextdesktop_subtitle",
-            IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindowAsync(MoveToNextDesktop),
-            Keyword = "Move to next desktop"
-        },
-        new()
-        {
-            Type = CommandType.ToggleWindowPinDesktops,
-            TitleKey = "flowlauncher_plugin_windowmanager_togglewindowpindesktops_title",
-            SubtitleKey = "flowlauncher_plugin_windowmanager_togglewindowpindesktops_subtitle",
-            IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindowAsync(ToggleWindowPinDesktops),
-            Keyword = "Toggle window pin desktops"
-        },
-        new()
-        {
-            Type = CommandType.ToggleAppPinDesktops,
-            TitleKey = "flowlauncher_plugin_windowmanager_toggleapppindesktops_title",
-            SubtitleKey = "flowlauncher_plugin_windowmanager_toggleapppindesktops_subtitle",
-            IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindowAsync(ToggleAppPinDesktops),
-            Keyword = "Toggle app pin desktops"
-        },
-        new()
-        {
             Type = CommandType.PreviousScreen,
             TitleKey = "flowlauncher_plugin_windowmanager_previousscreen_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_previousscreen_subtitle",
@@ -304,27 +232,6 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     #endregion
 
-    #region Constructor
-
-    public WindowManager()
-    {
-        if (_virtualDesktopSupported)
-        {
-            // Initialize the Virtual Desktop API
-            try
-            {
-                InitializeComObjects();
-                _virtualDesktopEnabled = true;
-            }
-            catch (Exception ex)
-            {
-                _virtualDesktopException = ex;
-            }
-        }
-    }
-
-    #endregion
-
     #region IPlugin Interface
 
     public List<Result> Query(Query query)
@@ -339,82 +246,6 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         // Init settings
         Settings = context.API.LoadSettingJsonStorage<Settings>();
         Context.API.LogDebug(ClassName, $"Init: {Settings}");
-
-        // Log debug information
-        if (!_virtualDesktopSupported)
-        {
-            Context.API.LogDebug(ClassName, "Virtual Desktop API is not supported.");
-            
-        }
-        else if(_virtualDesktopException == null)
-        {
-            Context.API.LogDebug(ClassName, "Virtual Desktop API is supported and initialized.");
-        }
-        else
-        {
-            Context.API.LogException(ClassName, "Virtual Desktop API is supported but failed to initialize.", _virtualDesktopException);
-        }
-    }
-
-    #endregion
-
-    #region Initialization
-
-    private static string GetPluginDirectory()
-    {
-        return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
-    }
-
-    private static void InitializeComObjects()
-    {
-        VirtualDesktop.Configure(new VirtualDesktopConfiguration()
-        {
-            SaveCompiledAssembly = true,
-            CompiledAssemblySaveDirectory = new DirectoryInfo(Path.Combine(GetPluginDirectory(), "assemblies"))
-        });
-
-        VirtualDesktop.Created += (_, desktop) =>
-        {
-            Context.API.LogDebug(ClassName, $"Created: {desktop.Name}");
-        };
-
-        VirtualDesktop.CurrentChanged += (_, args) =>
-        {
-            Context.API.LogDebug(ClassName, $"Switched: {args.OldDesktop.Name} -> {args.NewDesktop.Name}");
-        };
-
-        VirtualDesktop.Moved += (_, args) =>
-        {
-            Context.API.LogDebug(ClassName, $"Moved: {args.OldIndex} -> {args.NewIndex}, {args.Desktop}");
-        };
-
-        VirtualDesktop.Destroyed += (_, args) =>
-        {
-            Context.API.LogDebug(ClassName, $"Destroyed: {args.Destroyed}");   
-        };
-
-        VirtualDesktop.Renamed += (_, args) =>
-        {
-            Context.API.LogDebug(ClassName, $"Renamed: {args.Desktop}");
-        };
-
-        VirtualDesktop.WallpaperChanged += (_, args) =>
-        {
-            Context.API.LogDebug(ClassName, $"Wallpaper changed: {args.Desktop}, {args.Path}");
-        };
-
-        var currentId = VirtualDesktop.Current.Id;
-        foreach (var desktop in VirtualDesktop.GetDesktops())
-        {
-            if (desktop.Id == currentId)
-            {
-                Context.API.LogDebug(ClassName, $"Current Desktop: {desktop.Name}, ID: {desktop.Id}");
-            }
-            else
-            {
-                Context.API.LogDebug(ClassName, $"Desktop: {desktop.Name}, ID: {desktop.Id}");
-            }
-        }
     }
 
     #endregion
@@ -639,91 +470,6 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         }
     }
 
-    private static void PreviousDesktop()
-    {
-        var desktops = VirtualDesktop.GetDesktops();
-        if (desktops.Length <= 1)
-        {
-            Context.API.LogInfo(ClassName, "No other desktops available to move to");
-            return;
-        }
-
-        var index = Array.IndexOf(desktops, VirtualDesktop.Current);
-        var prevDesktop = index > 0 ? desktops[index - 1] : desktops[^1];
-
-        prevDesktop.Switch();
-    }
-
-    private static void NextDesktop()
-    {
-        var desktops = VirtualDesktop.GetDesktops();
-        if (desktops.Length <= 1)
-        {
-            Context.API.LogInfo(ClassName, "No other desktops available to move to");
-            return;
-        }
-
-        var index = Array.IndexOf(desktops, VirtualDesktop.Current);
-        var nextDesktop = index < desktops.Length - 1 ? desktops[index + 1] : desktops[0];
-
-        nextDesktop.Switch();
-    }
-
-    private static void MoveToPreviousDesktop(HWND handle)
-    {
-        var desktops = VirtualDesktop.GetDesktops();
-        if (desktops.Length <= 1)
-        {
-            Context.API.LogInfo(ClassName, "No other desktops available to move to");
-            return;
-        }
-
-        var index = Array.IndexOf(desktops, VirtualDesktop.Current);
-        var prevDesktop = index > 0 ? desktops[index - 1] : desktops[^1];
-
-        if (VirtualDesktop.IsPinnedWindow(handle) == false)
-        {
-            VirtualDesktop.MoveToDesktop(handle, prevDesktop);
-        }
-        prevDesktop.Switch();
-    }
-
-    private static void MoveToNextDesktop(HWND handle)
-    {
-        var desktops = VirtualDesktop.GetDesktops();
-        if (desktops.Length <= 1)
-        {
-            Context.API.LogInfo(ClassName, "No other desktops available to move to");
-            return;
-        }
-
-        var index = Array.IndexOf(desktops, VirtualDesktop.Current);
-        var nextDesktop = index < desktops.Length - 1 ? desktops[index + 1] : desktops[0];
-
-        if (VirtualDesktop.IsPinnedWindow(handle) == false)
-        {
-            VirtualDesktop.MoveToDesktop(handle, nextDesktop);
-        }
-        nextDesktop.Switch();
-    }
-
-    private static void ToggleWindowPinDesktops(HWND handle)
-    {
-        (VirtualDesktop.IsPinnedWindow(handle) ?
-            VirtualDesktop.UnpinWindow :
-            (Func<IntPtr, bool>)VirtualDesktop.PinWindow)(handle);
-    }
-
-    private static void ToggleAppPinDesktops(HWND handle)
-    {
-        if (VirtualDesktop.TryGetAppUserModelId(handle, out var appId))
-        {
-            (VirtualDesktop.IsPinnedApplication(appId) ?
-                VirtualDesktop.UnpinApplication :
-                (Func<string, bool>)VirtualDesktop.PinApplication)(appId);
-        }
-    }
-
     private static void PreviousScreen(HWND handle, RECT rect)
     {
         var screens = MonitorInfo.GetDisplayMonitors();
@@ -896,11 +642,10 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             foreach (var command in _commands)
             {
-                if (_virtualDesktopTypes.Contains(command.Type) && !_virtualDesktopEnabled) continue;
-
                 results.Add(new Result
                 {
                     Title = Context.API.GetTranslation(command.TitleKey),
+                    ContextData = command,
                     SubTitle = Context.API.GetTranslation(command.SubtitleKey),
                     IcoPath = command.IcoPath,
                     Score = 0,
@@ -921,14 +666,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             foreach (var command in _commands)
             {
-                if (_virtualDesktopTypes.Contains(command.Type) && !_virtualDesktopEnabled) continue;
-
                 var match = Context.API.FuzzySearch(searchTerm, command.Keyword);
 
                 if (!match.IsSearchPrecisionScoreMet()) continue;
                 results.Add(new Result
                 {
                     Title = Context.API.GetTranslation(command.TitleKey),
+                    ContextData = command,
                     AutoCompleteText = command.Keyword,
                     SubTitle = Context.API.GetTranslation(command.SubtitleKey),
                     IcoPath = command.IcoPath,

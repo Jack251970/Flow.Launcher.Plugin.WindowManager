@@ -16,9 +16,6 @@
 - Make windows smaller / larger
 - Resize windows to half / quarter of the screen
 - Move windows to the next / previous screen
-- Switch to the next / previous virtual desktop (Windows 10, 11)
-- Move windows to the next / previous virtual desktop (Windows 10, 11)
-- Toggle pin status of windows / apps across all virtual desktops (Windows 10, 11)
 
 ## 🖼️ Screenshots
 
@@ -64,7 +61,6 @@ The default action keyword is `wm`, you can change it in the Flow Launcher.
 - [ICONS](https://icons8.com/icons)
 - [ClipboardPlus](https://github.com/Jack251970/Flow.Launcher.Plugin.ClipboardPlus)
 - [Raycast](https://www.raycast.com/core-features/window-management)
-- [VirtualDesktop](https://github.com/Slion/VirtualDesktop)
 
 ## 📄 License
 

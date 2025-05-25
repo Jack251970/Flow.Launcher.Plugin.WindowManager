@@ -59,7 +59,6 @@
     <PackageReference Include="ModernWpfUI" Version="0.9.4">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Slions.VirtualDesktop" Version="6.9.2" />
   </ItemGroup>
 
   <ItemGroup>

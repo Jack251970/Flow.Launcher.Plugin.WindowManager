@@ -48,24 +48,6 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_makelarger_title">Make larger</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_makelarger_subtitle">Increase the size of the foreground window</system:String>
 
-    <system:String x:Key="flowlauncher_plugin_windowmanager_previousdesktop_title">Previous desktop</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_previousdesktop_subtitle">Switch to the previous virtual desktop</system:String>
-
-    <system:String x:Key="flowlauncher_plugin_windowmanager_nextdesktop_title">Next desktop</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_nextdesktop_subtitle">Switch to the next virtual desktop</system:String>
-
-    <system:String x:Key="flowlauncher_plugin_windowmanager_movetopreviousdesktop_title">Move to previous desktop</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_movetopreviousdesktop_subtitle">Move foreground window to the previous virtual desktop</system:String>
-
-    <system:String x:Key="flowlauncher_plugin_windowmanager_movetonextdesktop_title">Move to next desktop</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_movetonextdesktop_subtitle">Move foreground window to the next virtual desktop</system:String>
-
-    <system:String x:Key="flowlauncher_plugin_windowmanager_togglewindowpindesktops_title">Toggle window pin</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_togglewindowpindesktops_subtitle">Toggle pin status of foreground window across all virtual desktops</system:String>
-
-    <system:String x:Key="flowlauncher_plugin_windowmanager_toggleapppindesktops_title">Toggle app pin</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_toggleapppindesktops_subtitle">Toggle pin status of all windows of the app across all virtual desktops</system:String>
-
     <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_title">Previous screen</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_previousscreen_subtitle">Move foreground window to left top of previous screen</system:String>
 
