@@ -35,7 +35,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.Center,
             TitleKey = "flowlauncher_plugin_windowmanager_center_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_center_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/center.png",
             CommandAction = () => HandleForForegroundWindowAsync(Center),
             Keyword = "Center"
         },
@@ -44,7 +44,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.Maximize,
             TitleKey = "flowlauncher_plugin_windowmanager_maximize_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_maximize_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/maximize.png",
             CommandAction = () => HandleForForegroundWindowAsync(Maximize),
             Keyword = "Maximize"
         },
@@ -53,7 +53,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.Minimize,
             TitleKey = "flowlauncher_plugin_windowmanager_minimize_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_minimize_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/minimize.png",
             CommandAction = () => HandleForForegroundWindowAsync(Minimize),
             Keyword = "Minimize"
         },
@@ -62,7 +62,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.Restore,
             TitleKey = "flowlauncher_plugin_windowmanager_restore_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_restore_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/restore.png",
             CommandAction = () => HandleForForegroundWindowAsync(Restore),
             Keyword = "Restore"
         },
@@ -71,7 +71,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.MoveUp,
             TitleKey = "flowlauncher_plugin_windowmanager_moveup_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_moveup_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/move up.png",
             CommandAction = () => HandleForForegroundWindowAsync(MoveUp),
             Keyword = "Move up"
         },
@@ -80,7 +80,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.MoveDown,
             TitleKey = "flowlauncher_plugin_windowmanager_movedown_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_movedown_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/move down.png",
             CommandAction = () => HandleForForegroundWindowAsync(MoveDown),
             Keyword = "Move down"
         },
@@ -89,7 +89,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.MoveLeft,
             TitleKey = "flowlauncher_plugin_windowmanager_moveleft_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_moveleft_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/move left.png",
             CommandAction = () => HandleForForegroundWindowAsync(MoveLeft),
             Keyword = "Move left"
         },
@@ -98,7 +98,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.MoveRight,
             TitleKey = "flowlauncher_plugin_windowmanager_moveright_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_moveright_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/move right.png",
             CommandAction = () => HandleForForegroundWindowAsync(MoveRight),
             Keyword = "Move right"
         },
@@ -107,7 +107,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.MaximizeHeight,
             TitleKey = "flowlauncher_plugin_windowmanager_maximizeheight_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_maximizeheight_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/maximize height.png",
             CommandAction = () => HandleForForegroundWindowAsync(MaximizeHeight),
             Keyword = "Maximize height"
         },
@@ -116,7 +116,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.MaximizeWidth,
             TitleKey = "flowlauncher_plugin_windowmanager_maximizewidth_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_maximizewidth_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/maximize width.png",
             CommandAction = () => HandleForForegroundWindowAsync(MaximizeWidth),
             Keyword = "Maximize width"
         },
@@ -125,7 +125,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.MakeSmaller,
             TitleKey = "flowlauncher_plugin_windowmanager_makesmaller_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_makesmaller_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/make smaller.png",
             CommandAction = () => HandleForForegroundWindowAsync(MakeSmaller),
             Keyword = "Make smaller"
         },
@@ -134,7 +134,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.MakeLarger,
             TitleKey = "flowlauncher_plugin_windowmanager_makelarger_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_makelarger_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/make larger.png",
             CommandAction = () => HandleForForegroundWindowAsync(MakeLarger),
             Keyword = "Make larger"
         },
@@ -143,7 +143,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.PreviousScreen,
             TitleKey = "flowlauncher_plugin_windowmanager_previousscreen_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_previousscreen_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/previous screen.png",
             CommandAction = () => HandleForForegroundWindowAsync(PreviousScreen),
             Keyword = "Previous screen"
         },
@@ -152,7 +152,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.NextScreen,
             TitleKey = "flowlauncher_plugin_windowmanager_nextscreen_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_nextscreen_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/next screen.png",
             CommandAction = () => HandleForForegroundWindowAsync(NextScreen),
             Keyword = "Next screen"
         },
@@ -161,7 +161,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.TopLeftQuarter,
             TitleKey = "flowlauncher_plugin_windowmanager_topleftquarter_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_topleftquarter_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/top left quarter.png",
             CommandAction = () => HandleForForegroundWindowAsync(TopLeftQuarter),
             Keyword = "Top left quarter"
         },
@@ -170,7 +170,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.TopRightQuarter,
             TitleKey = "flowlauncher_plugin_windowmanager_toprightquarter_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_toprightquarter_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/top right quarter.png",
             CommandAction = () => HandleForForegroundWindowAsync(TopRightQuarter),
             Keyword = "Top right quarter"
         },
@@ -179,7 +179,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.BottomLeftQuarter,
             TitleKey = "flowlauncher_plugin_windowmanager_bottomleftquarter_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_bottomleftquarter_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/bottom left quarter.png",
             CommandAction = () => HandleForForegroundWindowAsync(BottomLeftQuarter),
             Keyword = "Bottom left quarter"
         },
@@ -188,7 +188,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.BottomRightQuarter,
             TitleKey = "flowlauncher_plugin_windowmanager_bottomrightquarter_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_bottomrightquarter_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/bottom right quarter.png",
             CommandAction = () => HandleForForegroundWindowAsync(BottomRightQuarter),
             Keyword = "Bottom right quarter"
         },
@@ -197,7 +197,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.LeftHalf,
             TitleKey = "flowlauncher_plugin_windowmanager_lefthalf_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_lefthalf_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/left half.png",
             CommandAction = () => HandleForForegroundWindowAsync(LeftHalf),
             Keyword = "Left half"
         },
@@ -206,7 +206,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.RightHalf,
             TitleKey = "flowlauncher_plugin_windowmanager_righthalf_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_righthalf_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/right half.png",
             CommandAction = () => HandleForForegroundWindowAsync(RightHalf),
             Keyword = "Right half"
         },
@@ -215,7 +215,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.TopHalf,
             TitleKey = "flowlauncher_plugin_windowmanager_tophalf_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_tophalf_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/top half.png",
             CommandAction = () => HandleForForegroundWindowAsync(TopHalf),
             Keyword = "Top half"
         },
@@ -224,7 +224,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             Type = CommandType.BottomHalf,
             TitleKey = "flowlauncher_plugin_windowmanager_bottomhalf_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_bottomhalf_subtitle",
-            IcoPath = "Images/icon.png",
+            IcoPath = "Images/bottom half.png",
             CommandAction = () => HandleForForegroundWindowAsync(BottomHalf),
             Keyword = "Bottom half"
         }
