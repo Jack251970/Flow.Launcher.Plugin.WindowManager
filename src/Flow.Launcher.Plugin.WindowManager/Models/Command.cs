@@ -20,7 +20,7 @@ public class Command
 
 public enum CommandType
 {
-    LeftTop,
+    TopLeft,
     Center,
     Maximize,
     Minimize,

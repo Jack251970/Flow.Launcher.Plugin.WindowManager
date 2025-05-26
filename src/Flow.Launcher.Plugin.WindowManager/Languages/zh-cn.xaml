@@ -9,8 +9,8 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_plugin_description">轻松移动和调整应用窗口大小</system:String>
 
     <!--  Main  -->
-    <system:String x:Key="flowlauncher_plugin_windowmanager_lefttop_title">左上角</system:String>
-    <system:String x:Key="flowlauncher_plugin_windowmanager_lefttop_subtitle">将前景窗口移动到其屏幕的左上角</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_topleft_title">左上角</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_topleft_subtitle">将前景窗口移动到其屏幕的左上角</system:String>
 
     <system:String x:Key="flowlauncher_plugin_windowmanager_center_title">居中</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_center_subtitle">将前景窗口居中显示在此屏幕</system:String>

@@ -23,12 +23,12 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
     {
         new()
         {
-            Type = CommandType.LeftTop,
-            TitleKey = "flowlauncher_plugin_windowmanager_lefttop_title",
-            SubtitleKey = "flowlauncher_plugin_windowmanager_lefttop_subtitle",
-            IcoPath = "Images/icon.png",
-            CommandAction = () => HandleForForegroundWindowAsync(LeftTop),
-            Keyword = "Left top"
+            Type = CommandType.TopLeft,
+            TitleKey = "flowlauncher_plugin_windowmanager_topleft_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_topleft_subtitle",
+            IcoPath = "Images/top left.png",
+            CommandAction = () => HandleForForegroundWindowAsync(TopLeft),
+            Keyword = "Top left"
         },
         new()
         {
@@ -300,7 +300,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         action(handle, rect);
     }
 
-    private static void LeftTop(HWND handle, RECT rect)
+    private static void TopLeft(HWND handle, RECT rect)
     {
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var width = rect.Width;
@@ -311,7 +311,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (PInvoke.SetWindowPos(handle, HWND.Null, leftX, topY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOSIZE | SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to left top");
+            Context.API.LogInfo(ClassName, "Failed to top left");
         }
     }
 

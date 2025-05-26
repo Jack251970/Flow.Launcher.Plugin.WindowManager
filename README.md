@@ -8,7 +8,7 @@
 
 ## ⭐ Features
 
-- Move window to the left top of the screen
+- Move window to the top left of the screen
 - Center window on the screen
 - Minimize / Maximize / Restore windows
 - Move windows to the left / right / top / bottom of the screen
