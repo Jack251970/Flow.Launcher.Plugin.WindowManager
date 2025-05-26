@@ -374,6 +374,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void TopLeft(HWND handle, RECT rect)
     {
+        // Do nothing if window is maximized
+        if (PInvoke.IsZoomed(handle))
+        {
+            Context.API.LogInfo(ClassName, "Window is maximized");
+            return;
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var width = rect.Width;
         var height = rect.Height;
@@ -389,6 +396,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void Center(HWND handle, RECT rect)
     {
+        // Do nothing if window is maximized
+        if (PInvoke.IsZoomed(handle))
+        {
+            Context.API.LogInfo(ClassName, "Window is maximized");
+            return;
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var width = rect.Width;
         var height = rect.Height;
@@ -428,6 +442,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void MoveUp(HWND handle, RECT rect)
     {
+        // Do nothing if window is maximized
+        if (PInvoke.IsZoomed(handle))
+        {
+            Context.API.LogInfo(ClassName, "Window is maximized");
+            return;
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var topY = (int)screen.RectWork.Y;
 
@@ -440,6 +461,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void MoveDown(HWND handle, RECT rect)
     {
+        // Do nothing if window is maximized
+        if (PInvoke.IsZoomed(handle))
+        {
+            Context.API.LogInfo(ClassName, "Window is maximized");
+            return;
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var bottomY = (int)screen.RectWork.Bottom - rect.Height;
 
@@ -452,6 +480,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void MoveLeft(HWND handle, RECT rect)
     {
+        // Do nothing if window is maximized
+        if (PInvoke.IsZoomed(handle))
+        {
+            Context.API.LogInfo(ClassName, "Window is maximized");
+            return;
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var leftX = (int)screen.RectWork.X;
 
@@ -464,6 +499,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void MoveRight(HWND handle, RECT rect)
     {
+        // Do nothing if window is maximized
+        if (PInvoke.IsZoomed(handle))
+        {
+            Context.API.LogInfo(ClassName, "Window is maximized");
+            return;
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var rightX = (int)screen.RectWork.Right - rect.Width;
 
@@ -476,6 +518,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void MaximizeHeight(HWND handle, RECT rect)
     {
+        // Do nothing if window is maximized
+        if (PInvoke.IsZoomed(handle))
+        {
+            Context.API.LogInfo(ClassName, "Window is maximized");
+            return;
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var topY = (int)screen.RectWork.Y;
         var height = (int)screen.RectWork.Height;
@@ -489,6 +538,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void MaximizeWidth(HWND handle, RECT rect)
     {
+        // Do nothing if window is maximized
+        if (PInvoke.IsZoomed(handle))
+        {
+            Context.API.LogInfo(ClassName, "Window is maximized");
+            return;
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var leftX = (int)screen.RectWork.X;
         var width = (int)screen.RectWork.Width;
@@ -502,6 +558,20 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void MakeSmaller(HWND handle, RECT rect)
     {
+        // Restore window if window is maximized
+        if (PInvoke.IsZoomed(handle))
+        {
+            if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
+            {
+                Context.API.LogInfo(ClassName, "Failed to restore window");
+            }
+            else
+            {
+                Context.API.LogInfo(ClassName, "Window was restored");
+            }
+            return;
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var intervalWidth = (int)Math.Round(screen.RectWork.Width * Settings.SizeInterval / 100.0);
         var intervalHeight = (int)Math.Round(screen.RectWork.Height * Settings.SizeInterval / 100.0);
@@ -523,6 +593,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void MakeLarger(HWND handle, RECT rect)
     {
+        // Do nothing if window is maximized
+        if (PInvoke.IsZoomed(handle))
+        {
+            Context.API.LogInfo(ClassName, "Window is maximized");
+            return;
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var intervalWidth = (int)Math.Round(screen.RectWork.Width * Settings.SizeInterval / 100.0);
         var intervalHeight = (int)Math.Round(screen.RectWork.Height * Settings.SizeInterval / 100.0);
@@ -551,6 +628,20 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             return;
         }
 
+        // Must make sure window restored
+        if (PInvoke.IsZoomed(handle))
+        {
+            if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
+            {
+                Context.API.LogInfo(ClassName, "Failed to restore window");
+                return;
+            }
+            else
+            {
+                Context.API.LogInfo(ClassName, "Window was restored");
+            }
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var index = screens.IndexOf(screen);
         var prevScreen = index > 0 ? screens[index - 1] : screens[^1];
@@ -571,6 +662,20 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             return;
         }
 
+        // Must make sure window restored
+        if (PInvoke.IsZoomed(handle))
+        {
+            if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
+            {
+                Context.API.LogInfo(ClassName, "Failed to restore window");
+                return;
+            }
+            else
+            {
+                Context.API.LogInfo(ClassName, "Window was restored");
+            }
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var index = screens.IndexOf(screen);
         var nextScreen = index < screens.Count - 1 ? screens[index + 1] : screens[0];
@@ -584,6 +689,20 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void TopLeftQuarter(HWND handle)
     {
+        // Must make sure window restored
+        if (PInvoke.IsZoomed(handle))
+        {
+            if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
+            {
+                Context.API.LogInfo(ClassName, "Failed to restore window");
+                return;
+            }
+            else
+            {
+                Context.API.LogInfo(ClassName, "Window was restored");
+            }
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var width = (int)Math.Round(screen.RectWork.Width / 2.0);
         var height = (int)Math.Round(screen.RectWork.Height / 2.0);
@@ -599,6 +718,20 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void TopRightQuarter(HWND handle)
     {
+        // Must make sure window restored
+        if (PInvoke.IsZoomed(handle))
+        {
+            if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
+            {
+                Context.API.LogInfo(ClassName, "Failed to restore window");
+                return;
+            }
+            else
+            {
+                Context.API.LogInfo(ClassName, "Window was restored");
+            }
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var width = (int)Math.Round(screen.RectWork.Width / 2.0);
         var height = (int)Math.Round(screen.RectWork.Height / 2.0);
@@ -614,6 +747,20 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void BottomLeftQuarter(HWND handle)
     {
+        // Must make sure window restored
+        if (PInvoke.IsZoomed(handle))
+        {
+            if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
+            {
+                Context.API.LogInfo(ClassName, "Failed to restore window");
+                return;
+            }
+            else
+            {
+                Context.API.LogInfo(ClassName, "Window was restored");
+            }
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var width = (int)Math.Round(screen.RectWork.Width / 2.0);
         var height = (int)Math.Round(screen.RectWork.Height / 2.0);
@@ -629,6 +776,20 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void BottomRightQuarter(HWND handle)
     {
+        // Must make sure window restored
+        if (PInvoke.IsZoomed(handle))
+        {
+            if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
+            {
+                Context.API.LogInfo(ClassName, "Failed to restore window");
+                return;
+            }
+            else
+            {
+                Context.API.LogInfo(ClassName, "Window was restored");
+            }
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var width = (int)Math.Round(screen.RectWork.Width / 2.0);
         var height = (int)Math.Round(screen.RectWork.Height / 2.0);
@@ -644,6 +805,20 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void LeftHalf(HWND handle)
     {
+        // Must make sure window restored
+        if (PInvoke.IsZoomed(handle))
+        {
+            if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
+            {
+                Context.API.LogInfo(ClassName, "Failed to restore window");
+                return;
+            }
+            else
+            {
+                Context.API.LogInfo(ClassName, "Window was restored");
+            }
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var width = (int)Math.Round(screen.RectWork.Width / 2.0);
         var height = (int)Math.Round(screen.RectWork.Height);
@@ -659,6 +834,20 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void RightHalf(HWND handle)
     {
+        // Must make sure window restored
+        if (PInvoke.IsZoomed(handle))
+        {
+            if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
+            {
+                Context.API.LogInfo(ClassName, "Failed to restore window");
+                return;
+            }
+            else
+            {
+                Context.API.LogInfo(ClassName, "Window was restored");
+            }
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var width = (int)Math.Round(screen.RectWork.Width / 2.0);
         var height = (int)Math.Round(screen.RectWork.Height);
@@ -674,6 +863,20 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void TopHalf(HWND handle)
     {
+        // Must make sure window restored
+        if (PInvoke.IsZoomed(handle))
+        {
+            if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
+            {
+                Context.API.LogInfo(ClassName, "Failed to restore window");
+                return;
+            }
+            else
+            {
+                Context.API.LogInfo(ClassName, "Window was restored");
+            }
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var width = (int)Math.Round(screen.RectWork.Width);
         var height = (int)Math.Round(screen.RectWork.Height / 2.0);
@@ -689,6 +892,20 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void BottomHalf(HWND handle)
     {
+        // Must make sure window restored
+        if (PInvoke.IsZoomed(handle))
+        {
+            if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
+            {
+                Context.API.LogInfo(ClassName, "Failed to restore window");
+                return;
+            }
+            else
+            {
+                Context.API.LogInfo(ClassName, "Window was restored");
+            }
+        }
+
         var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
         var width = (int)Math.Round(screen.RectWork.Width);
         var height = (int)Math.Round(screen.RectWork.Height / 2.0);

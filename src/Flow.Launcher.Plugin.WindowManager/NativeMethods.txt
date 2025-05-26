@@ -8,3 +8,4 @@ GetForegroundWindow
 GetWindowRect
 SetWindowPos
 ShowWindow
+IsZoomed
