@@ -45,6 +45,7 @@ namespace Flow.Launcher.Plugin.WindowManager.Test
                         else
                         {
                             Debug.WriteLine($"No action defined for command: {command.Keyword}");
+                            throw new NotImplementedException($"No action defined for command: {command.Keyword}");
                         }
                     };
                     MainPanel.Children.Add(item);
