@@ -29,19 +29,28 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Text="{DynamicResource flowlauncher_plugin_windowmanager_size_interval}" />
-        <ui:NumberBox
+        <StackPanel
             Grid.Row="0"
             Grid.Column="1"
-            Width="120"
             Margin="{StaticResource SettingPanelItemLeftTopBottomMargin}"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Maximum="99"
-            Minimum="1"
-            SmallChange="5"
-            SpinButtonPlacementMode="Compact"
-            ValidationMode="InvalidInputOverwritten"
-            Value="{Binding SizeInterval, Mode=TwoWay}" />
+            Orientation="Horizontal">
+            <ui:NumberBox
+                Width="120"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Maximum="99"
+                Minimum="1"
+                SmallChange="5"
+                SpinButtonPlacementMode="Compact"
+                ValidationMode="InvalidInputOverwritten"
+                Value="{Binding SizeInterval, Mode=TwoWay}" />
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Text="%" />
+        </StackPanel>
 
     </Grid>
 </UserControl>
