@@ -250,6 +250,69 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     #endregion
 
+    #region Query List
+
+    private List<Result> QueryList(Query query)
+    {
+        var results = new List<Result>();
+        var searchTerm = query.Search;
+        if (string.IsNullOrEmpty(searchTerm))
+        {
+            foreach (var command in _commands)
+            {
+                results.Add(new Result
+                {
+                    Title = Context.API.GetTranslation(command.TitleKey),
+                    ContextData = command,
+                    SubTitle = Context.API.GetTranslation(command.SubtitleKey),
+                    IcoPath = command.IcoPath,
+                    Score = 0,
+                    Action = c =>
+                    {
+                        _ = Task.Run(async () =>
+                        {
+                            Context.API.HideMainWindow();
+                            await command.CommandAction();
+                        });
+                        return true;
+                    }
+                });
+            }
+            return results;
+        }
+        else
+        {
+            foreach (var command in _commands)
+            {
+                var match = Context.API.FuzzySearch(searchTerm, command.Keyword);
+
+                if (!match.IsSearchPrecisionScoreMet()) continue;
+                results.Add(new Result
+                {
+                    Title = Context.API.GetTranslation(command.TitleKey),
+                    ContextData = command,
+                    AutoCompleteText = command.Keyword,
+                    SubTitle = Context.API.GetTranslation(command.SubtitleKey),
+                    IcoPath = command.IcoPath,
+                    Score = match.Score,
+                    Action = c =>
+                    {
+                        _ = Task.Run(async () =>
+                        {
+                            Context.API.HideMainWindow();
+                            await command.CommandAction();
+                        });
+                        return true;
+                    }
+                });
+            }
+        }
+
+        return results;
+    }
+
+    #endregion
+
     #region Move & Resize Actions
 
     // TODO: Change to Context.API.LogError.
@@ -621,69 +684,6 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             Context.API.LogInfo(ClassName, "Failed to move to bottom half");
         }
-    }
-
-    #endregion
-
-    #region Query List
-
-    private List<Result> QueryList(Query query)
-    {
-        var results = new List<Result>();
-        var searchTerm = query.Search;
-        if (string.IsNullOrEmpty(searchTerm))
-        {
-            foreach (var command in _commands)
-            {
-                results.Add(new Result
-                {
-                    Title = Context.API.GetTranslation(command.TitleKey),
-                    ContextData = command,
-                    SubTitle = Context.API.GetTranslation(command.SubtitleKey),
-                    IcoPath = command.IcoPath,
-                    Score = 0,
-                    Action = c =>
-                    {
-                        _ = Task.Run(async () =>
-                        {
-                            Context.API.HideMainWindow();
-                            await command.CommandAction();
-                        });
-                        return true;
-                    }
-                });
-            }
-            return results;
-        }
-        else
-        {
-            foreach (var command in _commands)
-            {
-                var match = Context.API.FuzzySearch(searchTerm, command.Keyword);
-
-                if (!match.IsSearchPrecisionScoreMet()) continue;
-                results.Add(new Result
-                {
-                    Title = Context.API.GetTranslation(command.TitleKey),
-                    ContextData = command,
-                    AutoCompleteText = command.Keyword,
-                    SubTitle = Context.API.GetTranslation(command.SubtitleKey),
-                    IcoPath = command.IcoPath,
-                    Score = match.Score,
-                    Action = c =>
-                    {
-                        _ = Task.Run(async () =>
-                        {
-                            Context.API.HideMainWindow();
-                            await command.CommandAction();
-                        });
-                        return true;
-                    }
-                });
-            }
-        }
-
-        return results;
     }
 
     #endregion
