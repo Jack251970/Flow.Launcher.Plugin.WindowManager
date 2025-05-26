@@ -387,7 +387,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         var leftX = (int)screen.RectWork.X;
         var topY = (int)screen.RectWork.Y;
 
-        if (PInvoke.SetWindowPos(handle, HWND.Null, leftX, topY, width, height,
+        if (!PInvoke.SetWindowPos(handle, HWND.Null, leftX, topY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOSIZE | SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
             Context.API.LogInfo(ClassName, "Failed to top left");
