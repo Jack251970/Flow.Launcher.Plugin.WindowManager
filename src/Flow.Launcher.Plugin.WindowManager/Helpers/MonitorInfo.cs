@@ -16,6 +16,16 @@ namespace Flow.Launcher.Plugin.WindowManager.Helpers;
 internal class MonitorInfo
 {
     /// <summary>
+    /// Gets the display monitors count (including invisible pseudo-monitors associated with the mirroring drivers).
+    /// </summary>
+    /// <returns>Count of display monitors</returns>
+    public static int GetDisplayMonitorCount()
+    {
+        var monitorCount = PInvoke.GetSystemMetrics(SYSTEM_METRICS_INDEX.SM_CMONITORS);
+        return monitorCount;
+    }
+
+    /// <summary>
     /// Gets the display monitors (including invisible pseudo-monitors associated with the mirroring drivers).
     /// </summary>
     /// <returns>A list of display monitors</returns>

@@ -19,6 +19,12 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private readonly static string ClassName = nameof(WindowManager);
 
+    private readonly IList<CommandType> _multipleScreenCommands = new List<CommandType>()
+    {
+        CommandType.PreviousScreen,
+        CommandType.NextScreen
+    };
+
     private readonly List<Command> _commands = new()
     {
         new()
@@ -260,6 +266,11 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             foreach (var command in _commands)
             {
+                if (_multipleScreenCommands.Contains(command.Type) && MonitorInfo.GetDisplayMonitorCount() <= 1)
+                {
+                    continue; // Skip commands that require multiple screens if only one screen is available
+                }
+
                 results.Add(new Result
                 {
                     Title = Context.API.GetTranslation(command.TitleKey),
@@ -284,6 +295,11 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             foreach (var command in _commands)
             {
+                if (_multipleScreenCommands.Contains(command.Type) && MonitorInfo.GetDisplayMonitorCount() <= 1)
+                {
+                    continue; // Skip commands that require multiple screens if only one screen is available
+                }
+
                 var match = Context.API.FuzzySearch(searchTerm, command.Keyword);
 
                 if (!match.IsSearchPrecisionScoreMet()) continue;
