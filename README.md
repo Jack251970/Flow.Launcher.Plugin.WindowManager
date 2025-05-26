@@ -90,6 +90,7 @@ Use the action keyword to search for commands in Flow Launcher and click any res
 - [ICONS](https://icons8.com/icons)
 - [ClipboardPlus](https://github.com/Jack251970/Flow.Launcher.Plugin.ClipboardPlus)
 - [Raycast](https://www.raycast.com/core-features/window-management)
+- [fluentui-system-icons](https://github.com/microsoft/fluentui-system-icons)
 
 ## 📄 License
 
