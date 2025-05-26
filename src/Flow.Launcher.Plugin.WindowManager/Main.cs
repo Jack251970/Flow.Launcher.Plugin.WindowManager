@@ -253,13 +253,6 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
     #region Move & Resize Actions
 
     // TODO: Change to Context.API.LogError.
-    private static async Task HandleForForegroundWindowAsync(Action action)
-    {
-        action();
-
-        await Task.CompletedTask;
-    }
-
     private static async Task HandleForForegroundWindowAsync(Action<HWND> action)
     {
         while (Context.API.IsMainWindowVisible())
