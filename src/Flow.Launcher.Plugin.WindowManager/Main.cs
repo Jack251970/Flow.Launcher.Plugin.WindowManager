@@ -331,7 +331,6 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     #region Move & Resize Actions
 
-    // TODO: Change to Context.API.LogError.
     private static async Task HandleForForegroundWindowAsync(Action<HWND> action)
     {
         while (Context.API.IsMainWindowVisible())
@@ -342,7 +341,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         var handle = PInvoke.GetForegroundWindow();
         if (handle.IsNull)
         {
-            Context.API.LogInfo(ClassName, "Failed to find foreground window");
+            Context.API.LogError(ClassName, "Failed to find foreground window");
             return;
         }
 
@@ -359,13 +358,13 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         var handle = PInvoke.GetForegroundWindow();
         if (handle.IsNull)
         {
-            Context.API.LogInfo(ClassName, "Failed to find foreground window");
+            Context.API.LogError(ClassName, "Failed to find foreground window");
             return;
         }
 
         if (!PInvoke.GetWindowRect(handle, out var rect))
         {
-            Context.API.LogInfo(ClassName, "Failed to get window rect");
+            Context.API.LogError(ClassName, "Failed to get window rect");
             return;
         }
 
@@ -390,7 +389,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, leftX, topY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOSIZE | SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to top left");
+            Context.API.LogError(ClassName, "Failed to top left");
         }
     }
 
@@ -412,7 +411,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, centerX, centerY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOSIZE | SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to center");
+            Context.API.LogError(ClassName, "Failed to center");
         }
     }
 
@@ -420,7 +419,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
     {
         if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_MAXIMIZE))
         {
-            Context.API.LogInfo(ClassName, "Failed to maximize");
+            Context.API.LogError(ClassName, "Failed to maximize");
         }
     }
 
@@ -428,7 +427,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
     {
         if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_MINIMIZE))
         {
-            Context.API.LogInfo(ClassName, "Failed to minimize");
+            Context.API.LogError(ClassName, "Failed to minimize");
         }
     }
 
@@ -436,7 +435,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
     {
         if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
         {
-            Context.API.LogInfo(ClassName, "Failed to restore");
+            Context.API.LogError(ClassName, "Failed to restore");
         }
     }
 
@@ -455,7 +454,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, rect.X, topY, rect.Width, rect.Height,
             SET_WINDOW_POS_FLAGS.SWP_NOSIZE | SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move up");
+            Context.API.LogError(ClassName, "Failed to move up");
         }
     }
 
@@ -474,7 +473,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, rect.X, bottomY, rect.Width, rect.Height,
             SET_WINDOW_POS_FLAGS.SWP_NOSIZE | SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move down");
+            Context.API.LogError(ClassName, "Failed to move down");
         }
     }
 
@@ -493,7 +492,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, leftX, rect.Y, rect.Width, rect.Height,
             SET_WINDOW_POS_FLAGS.SWP_NOSIZE | SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move left");
+            Context.API.LogError(ClassName, "Failed to move left");
         }
     }
 
@@ -512,7 +511,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, rightX, rect.Y, rect.Width, rect.Height,
             SET_WINDOW_POS_FLAGS.SWP_NOSIZE | SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move right");
+            Context.API.LogError(ClassName, "Failed to move right");
         }
     }
 
@@ -532,7 +531,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, rect.X, topY, rect.Width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to maximize height");
+            Context.API.LogError(ClassName, "Failed to maximize height");
         }
     }
 
@@ -552,7 +551,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, leftX, rect.Y, width, rect.Height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to maximize width");
+            Context.API.LogError(ClassName, "Failed to maximize width");
         }
     }
 
@@ -563,7 +562,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
             {
-                Context.API.LogInfo(ClassName, "Failed to restore window");
+                Context.API.LogError(ClassName, "Failed to restore window");
             }
             else
             {
@@ -587,7 +586,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, winX, winY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to make smaller");
+            Context.API.LogError(ClassName, "Failed to make smaller");
         }
     }
 
@@ -615,7 +614,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, winX, winY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to make smaller");
+            Context.API.LogError(ClassName, "Failed to make smaller");
         }
     }
 
@@ -633,7 +632,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
             {
-                Context.API.LogInfo(ClassName, "Failed to restore window");
+                Context.API.LogError(ClassName, "Failed to restore window");
                 return;
             }
             else
@@ -649,7 +648,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, (int)prevScreen.RectWork.X, (int)prevScreen.RectWork.Y, rect.Width, rect.Height,
             SET_WINDOW_POS_FLAGS.SWP_NOSIZE | SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move to previous screen");
+            Context.API.LogError(ClassName, "Failed to move to previous screen");
         }
     }
 
@@ -667,7 +666,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
             {
-                Context.API.LogInfo(ClassName, "Failed to restore window");
+                Context.API.LogError(ClassName, "Failed to restore window");
                 return;
             }
             else
@@ -683,7 +682,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, (int)nextScreen.RectWork.X, (int)nextScreen.RectWork.Y, rect.Width, rect.Height,
             SET_WINDOW_POS_FLAGS.SWP_NOSIZE | SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move to next screen");
+            Context.API.LogError(ClassName, "Failed to move to next screen");
         }
     }
 
@@ -694,7 +693,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
             {
-                Context.API.LogInfo(ClassName, "Failed to restore window");
+                Context.API.LogError(ClassName, "Failed to restore window");
                 return;
             }
             else
@@ -712,7 +711,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, topLeftX, topLeftY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move to top left quarter");
+            Context.API.LogError(ClassName, "Failed to move to top left quarter");
         }
     }
 
@@ -723,7 +722,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
             {
-                Context.API.LogInfo(ClassName, "Failed to restore window");
+                Context.API.LogError(ClassName, "Failed to restore window");
                 return;
             }
             else
@@ -741,7 +740,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, topRightX, topRightY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move to top right quarter");
+            Context.API.LogError(ClassName, "Failed to move to top right quarter");
         }
     }
 
@@ -752,7 +751,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
             {
-                Context.API.LogInfo(ClassName, "Failed to restore window");
+                Context.API.LogError(ClassName, "Failed to restore window");
                 return;
             }
             else
@@ -770,7 +769,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, bottomLeftX, bottomLeftY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move to bottom left quarter");
+            Context.API.LogError(ClassName, "Failed to move to bottom left quarter");
         }
     }
 
@@ -781,7 +780,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
             {
-                Context.API.LogInfo(ClassName, "Failed to restore window");
+                Context.API.LogError(ClassName, "Failed to restore window");
                 return;
             }
             else
@@ -799,7 +798,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, bottomRightX, bottomRightY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move to bottom right quarter");
+            Context.API.LogError(ClassName, "Failed to move to bottom right quarter");
         }
     }
 
@@ -810,7 +809,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
             {
-                Context.API.LogInfo(ClassName, "Failed to restore window");
+                Context.API.LogError(ClassName, "Failed to restore window");
                 return;
             }
             else
@@ -828,7 +827,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, leftX, topY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move to left half");
+            Context.API.LogError(ClassName, "Failed to move to left half");
         }
     }
 
@@ -839,7 +838,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
             {
-                Context.API.LogInfo(ClassName, "Failed to restore window");
+                Context.API.LogError(ClassName, "Failed to restore window");
                 return;
             }
             else
@@ -857,7 +856,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, rightX, topY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move to right half");
+            Context.API.LogError(ClassName, "Failed to move to right half");
         }
     }
 
@@ -868,7 +867,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
             {
-                Context.API.LogInfo(ClassName, "Failed to restore window");
+                Context.API.LogError(ClassName, "Failed to restore window");
                 return;
             }
             else
@@ -886,7 +885,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, leftX, topY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move to top half");
+            Context.API.LogError(ClassName, "Failed to move to top half");
         }
     }
 
@@ -897,7 +896,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         {
             if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
             {
-                Context.API.LogInfo(ClassName, "Failed to restore window");
+                Context.API.LogError(ClassName, "Failed to restore window");
                 return;
             }
             else
@@ -915,7 +914,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.SetWindowPos(handle, HWND.Null, leftX, bottomY, width, height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
-            Context.API.LogInfo(ClassName, "Failed to move to bottom half");
+            Context.API.LogError(ClassName, "Failed to move to bottom half");
         }
     }
 
