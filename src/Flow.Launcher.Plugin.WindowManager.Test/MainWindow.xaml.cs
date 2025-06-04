@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Flow.Launcher.Plugin.WindowManager.Test
 {
@@ -219,6 +220,11 @@ namespace Flow.Launcher.Plugin.WindowManager.Test
                 Debug.WriteLine($"WARN: [{className}.{methodName}] {message}");
             }
 
+            void IPublicAPI.LogError(string className, string message, string methodName)
+            {
+                Debug.WriteLine($"ERROR: [{className}.{methodName}] {message}");
+            }
+
             public void LogException(string className, string message, Exception e, [CallerMemberName] string methodName = "")
             {
                 Debug.WriteLine($"EXCEPTION: [{className}.{methodName}] {message}\n{e}");
@@ -270,6 +276,126 @@ namespace Flow.Launcher.Plugin.WindowManager.Test
             }
 
             public bool IsGameModeOn()
+            {
+                throw new NotImplementedException();
+            }
+
+            void IPublicAPI.FocusQueryTextBox()
+            {
+                throw new NotImplementedException();
+            }
+
+            Task IPublicAPI.HttpDownloadAsync(string url, string filePath, Action<double> reportProgress, CancellationToken token)
+            {
+                throw new NotImplementedException();
+            }
+
+            void IPublicAPI.BackToQueryResults()
+            {
+                throw new NotImplementedException();
+            }
+
+            MessageBoxResult IPublicAPI.ShowMsgBox(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon, MessageBoxResult defaultResult)
+            {
+                throw new NotImplementedException();
+            }
+
+            Task IPublicAPI.ShowProgressBoxAsync(string caption, Func<Action<double>, Task> reportProgressAsync, Action cancelProgress)
+            {
+                throw new NotImplementedException();
+            }
+
+            void IPublicAPI.StartLoadingBar()
+            {
+                throw new NotImplementedException();
+            }
+
+            void IPublicAPI.StopLoadingBar()
+            {
+                throw new NotImplementedException();
+            }
+
+            List<ThemeData> IPublicAPI.GetAvailableThemes()
+            {
+                throw new NotImplementedException();
+            }
+
+            ThemeData IPublicAPI.GetCurrentTheme()
+            {
+                throw new NotImplementedException();
+            }
+
+            bool IPublicAPI.SetCurrentTheme(ThemeData theme)
+            {
+                throw new NotImplementedException();
+            }
+
+            void IPublicAPI.SavePluginCaches()
+            {
+                throw new NotImplementedException();
+            }
+
+            Task<T> IPublicAPI.LoadCacheBinaryStorageAsync<T>(string cacheName, string cacheDirectory, T defaultData)
+            {
+                throw new NotImplementedException();
+            }
+
+            Task IPublicAPI.SaveCacheBinaryStorageAsync<T>(string cacheName, string cacheDirectory)
+            {
+                throw new NotImplementedException();
+            }
+
+            ValueTask<ImageSource> IPublicAPI.LoadImageAsync(string path, bool loadFullImage, bool cacheImage)
+            {
+                throw new NotImplementedException();
+            }
+
+            Task<bool> IPublicAPI.UpdatePluginManifestAsync(bool usePrimaryUrlOnly, CancellationToken token)
+            {
+                throw new NotImplementedException();
+            }
+
+            IReadOnlyList<UserPlugin> IPublicAPI.GetPluginManifest()
+            {
+                throw new NotImplementedException();
+            }
+
+            bool IPublicAPI.PluginModified(string id)
+            {
+                throw new NotImplementedException();
+            }
+
+            Task IPublicAPI.UpdatePluginAsync(PluginMetadata pluginMetadata, UserPlugin plugin, string zipFilePath)
+            {
+                throw new NotImplementedException();
+            }
+
+            void IPublicAPI.InstallPlugin(UserPlugin plugin, string zipFilePath)
+            {
+                throw new NotImplementedException();
+            }
+
+            Task IPublicAPI.UninstallPluginAsync(PluginMetadata pluginMetadata, bool removePluginSettings)
+            {
+                throw new NotImplementedException();
+            }
+
+            long IPublicAPI.StopwatchLogDebug(string className, string message, Action action, string methodName)
+            {
+                throw new NotImplementedException();
+            }
+
+            Task<long> IPublicAPI.StopwatchLogDebugAsync(string className, string message, Func<Task> action, string methodName)
+            {
+                throw new NotImplementedException();
+            }
+
+            long IPublicAPI.StopwatchLogInfo(string className, string message, Action action, string methodName)
+            {
+                throw new NotImplementedException();
+            }
+
+            Task<long> IPublicAPI.StopwatchLogInfoAsync(string className, string message, Func<Task> action, string methodName)
             {
                 throw new NotImplementedException();
             }
