@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/github/license/Jack251970/Flow.Launcher.Plugin.WindowManager">
 </p>
 
-**This plugin is a clipboard manager for [Flow Launcher](https://github.com/Flow-Launcher/Flow.Launcher). It can help you move and resize application windows.**
+**This plugin is a window manager for [Flow Launcher](https://github.com/Flow-Launcher/Flow.Launcher). It can help you move and resize application windows.**
 
 ## ⭐ Features
 
