@@ -78,7 +78,12 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_bottomhalf_title">下半螢幕</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_bottomhalf_subtitle">將前景視窗調整到螢幕下半部分</system:String>
 
+    <system:String x:Key="flowlauncher_plugin_windowmanager_reasonablesize_title">合理大小</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_reasonablesize_subtitle">將前景視窗調整為其螢幕的合理大小</system:String>
+
     <!--  Settings  -->
     <system:String x:Key="flowlauncher_plugin_windowmanager_size_interval">視窗大小調整間隔：</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_reasonablesize_width">合理大小寬度：</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_reasonablesize_height">合理大小高度：</system:String>
 
 </ResourceDictionary>

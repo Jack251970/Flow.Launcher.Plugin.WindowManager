@@ -42,5 +42,6 @@ public enum CommandType
     LeftHalf,
     RightHalf,
     TopHalf,
-    BottomHalf
+    BottomHalf,
+    ReasonableSize
 }

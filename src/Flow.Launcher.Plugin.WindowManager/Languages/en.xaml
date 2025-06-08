@@ -78,7 +78,12 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_bottomhalf_title">Bottom half</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_bottomhalf_subtitle">Resize foreground window to the bottom half of its screen</system:String>
 
+    <system:String x:Key="flowlauncher_plugin_windowmanager_reasonablesize_title">Reasonable size</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_reasonablesize_subtitle">Resize foreground window to the reasonable size of its screen</system:String>
+
     <!--  Settings  -->
     <system:String x:Key="flowlauncher_plugin_windowmanager_size_interval">Window size changing interval:</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_reasonablesize_width">Reasonable size width:</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_reasonablesize_height">Reasonable size height:</system:String>
 
 </ResourceDictionary>

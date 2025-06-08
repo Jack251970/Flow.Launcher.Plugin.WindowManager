@@ -14,6 +14,9 @@
     <Grid Margin="{StaticResource SettingPanelMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -45,8 +48,69 @@
                 ValidationMode="InvalidInputOverwritten"
                 Value="{Binding SizeInterval, Mode=TwoWay}" />
             <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Text="%" />
+        </StackPanel>
+
+        <!--  Seperator  -->
+        <Separator
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Style="{StaticResource SettingPanelSeparatorStyle}" />
+
+        <!--  Reasonable Size  -->
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="{StaticResource SettingPanelItemTopBottomMargin}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Text="{DynamicResource flowlauncher_plugin_windowmanager_reasonablesize_width}" />
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="{StaticResource SettingPanelItemLeftTopBottomMargin}"
+            Orientation="Horizontal">
+            <ui:NumberBox
+                Width="120"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Maximum="99"
+                Minimum="1"
+                SmallChange="5"
+                SpinButtonPlacementMode="Compact"
+                ValidationMode="InvalidInputOverwritten"
+                Value="{Binding ReasonableSizeWidth, Mode=TwoWay}" />
+            <TextBlock
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Text="%" />
+        </StackPanel>
+
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="0"
+            Margin="{StaticResource SettingPanelItemTopBottomMargin}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Text="{DynamicResource flowlauncher_plugin_windowmanager_reasonablesize_height}" />
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="{StaticResource SettingPanelItemLeftTopBottomMargin}"
+            Orientation="Horizontal">
+            <ui:NumberBox
+                Width="120"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Maximum="99"
+                Minimum="1"
+                SmallChange="5"
+                SpinButtonPlacementMode="Compact"
+                ValidationMode="InvalidInputOverwritten"
+                Value="{Binding ReasonableSizeHeight, Mode=TwoWay}" />
+            <TextBlock
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Text="%" />

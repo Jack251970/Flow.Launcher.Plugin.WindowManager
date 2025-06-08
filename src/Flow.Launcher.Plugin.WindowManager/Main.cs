@@ -233,6 +233,15 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             IcoPath = "Images/bottom half.png",
             CommandAction = () => HandleForForegroundWindowAsync(BottomHalf),
             Keyword = "Bottom half"
+        },
+        new()
+        {
+            Type = CommandType.ReasonableSize,
+            TitleKey = "flowlauncher_plugin_windowmanager_reasonablesize_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_reasonablesize_subtitle",
+            IcoPath = "Images/center.png",
+            CommandAction = () => HandleForForegroundWindowAsync(ReasonableSize),
+            Keyword = "Reasonable size"
         }
     };
 
@@ -915,6 +924,28 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
         {
             Context.API.LogError(ClassName, "Failed to move to bottom half");
+        }
+    }
+
+    private static void ReasonableSize(HWND handle, RECT rect)
+    {
+        // Do nothing if window is maximized
+        if (PInvoke.IsZoomed(handle))
+        {
+            Context.API.LogInfo(ClassName, "Window is maximized");
+            return;
+        }
+
+        var screen = MonitorInfo.GetNearestDisplayMonitor(handle);
+        var width = (int)Math.Round(screen.RectWork.Width * Settings.ReasonableSizeWidth / 100.0);
+        var height = (int)Math.Round(screen.RectWork.Height * Settings.ReasonableSizeHeight / 100.0);
+        var winX = (int)Math.Round(rect.X + (rect.Width - width) / 2.0);
+        var winY = (int)Math.Round(rect.Y + (rect.Height - height) / 2.0);
+
+        if (!PInvoke.SetWindowPos(handle, HWND.Null, winX, winY, width, height,
+            SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE))
+        {
+            Context.API.LogError(ClassName, "Failed to set reasonable size");
         }
     }
 

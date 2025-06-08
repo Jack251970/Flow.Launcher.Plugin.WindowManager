@@ -20,6 +20,34 @@ public class Settings : BaseModel
         }
     }
 
+    private double _reasonableSizeWidth = 85;
+    public double ReasonableSizeWidth
+    {
+        get => _reasonableSizeWidth;
+        set
+        {
+            if ((value > 0 || value < 100) && _reasonableSizeWidth != value)
+            {
+                _reasonableSizeWidth = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    private double _reasonableSizeHeight = 85;
+    public double ReasonableSizeHeight
+    {
+        get => _reasonableSizeHeight;
+        set
+        {
+            if ((value > 0 || value < 100) && _reasonableSizeHeight != value)
+            {
+                _reasonableSizeHeight = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
     public void RestoreToDefault()
     {
         var defaultSettings = new Settings();
