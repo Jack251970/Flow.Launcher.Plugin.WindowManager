@@ -24,7 +24,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!--  Clear Keyword  -->
+        <!--  Size Interval  -->
         <TextBlock
             Grid.Row="0"
             Grid.Column="0"
