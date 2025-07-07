@@ -8,6 +8,7 @@
     Title="Window Manager Test"
     Width="500"
     Height="800"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <ScrollViewer>
