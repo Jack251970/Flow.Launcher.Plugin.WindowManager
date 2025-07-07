@@ -10,5 +10,7 @@
     Height="800"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <StackPanel x:Name="MainPanel" />
+    <ScrollViewer>
+        <StackPanel x:Name="MainPanel" Margin="4" />
+    </ScrollViewer>
 </Window>
