@@ -185,7 +185,7 @@ public class TestHelper
             Debug.WriteLine($"WARN: [{className}.{methodName}] {message}");
         }
 
-        void IPublicAPI.LogError(string className, string message, string methodName)
+        public void LogError(string className, string message, [CallerMemberName] string methodName = "")
         {
             Debug.WriteLine($"ERROR: [{className}.{methodName}] {message}");
         }
