@@ -8,5 +8,6 @@
   "Language": "csharp",
   "Website": "https://github.com/Jack251970/Flow.Launcher.Plugin.WindowManager",
   "IcoPath": "Images/icon.png",
-  "ExecuteFileName": "Flow.Launcher.Plugin.WindowManager.dll"
+  "ExecuteFileName": "Flow.Launcher.Plugin.WindowManager.dll",
+  "MinimumAppVersion": "2.0.0"
 }
