@@ -22,6 +22,7 @@ public class TestHelper
     private class PublicAPIInstance(MainWindow mainWindow) : IPublicAPI
     {
         public event VisibilityChangedEventHandler VisibilityChanged = null!;
+        public event ActualApplicationThemeChangedEventHandler ActualApplicationThemeChanged = null!;
 
         public MainWindow MainWindow { get; } = mainWindow;
 
@@ -330,21 +331,6 @@ public class TestHelper
             throw new NotImplementedException();
         }
 
-        public Task UpdatePluginAsync(PluginMetadata pluginMetadata, UserPlugin plugin, string zipFilePath)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InstallPlugin(UserPlugin plugin, string zipFilePath)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UninstallPluginAsync(PluginMetadata pluginMetadata, bool removePluginSettings)
-        {
-            throw new NotImplementedException();
-        }
-
         public long StopwatchLogDebug(string className, string message, Action action, string methodName)
         {
             throw new NotImplementedException();
@@ -361,6 +347,61 @@ public class TestHelper
         }
 
         public Task<long> StopwatchLogInfoAsync(string className, string message, Func<Task> action, string methodName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowMsgErrorWithButton(string title, string buttonText, Action buttonAction, string subTitle = "")
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowMsgWithButton(string title, string buttonText, Action buttonAction, string subTitle = "", string iconPath = "")
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowMsgWithButton(string title, string buttonText, Action buttonAction, string subTitle, string iconPath, bool useMainWindowAsOwner = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OpenWebUrl(Uri url, bool? inPrivate = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OpenWebUrl(string url, bool? inPrivate = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdatePluginAsync(PluginMetadata pluginMetadata, UserPlugin plugin, string zipFilePath)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool InstallPlugin(UserPlugin plugin, string zipFilePath)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UninstallPluginAsync(PluginMetadata pluginMetadata, bool removePluginSettings)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsApplicationDarkTheme()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetDataDirectory()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetLogDirectory()
         {
             throw new NotImplementedException();
         }
