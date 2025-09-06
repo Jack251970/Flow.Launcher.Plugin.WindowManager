@@ -7,12 +7,10 @@
     <RepositoryUrl>https://github.com/Jack251970/Flow.Launcher.Plugin.WindowManager</RepositoryUrl>
     <PackageTags>flow-launcher flow-plugin</PackageTags>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <LangVersion>11</LangVersion>
     <Nullable>enable</Nullable>
     <TargetFramework>net7.0-windows10.0.19041</TargetFramework>
     <Version>1.2.1</Version>
     <ReleaseOutputPath>./bin/Release</ReleaseOutputPath>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
