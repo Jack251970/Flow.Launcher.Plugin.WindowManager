@@ -459,7 +459,7 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
 
     private static void Close(HWND handle)
     {
-        if (!PInvoke.PostMessage(handle, WINDOW_MESSAGE.WM_CLOSE, WPARAM.Zero, LPARAM.Zero))
+        if (!PInvoke.PostMessage(handle, WINDOW_MESSAGE.WM_CLOSE, 0, 0))
         {
             Context.API.LogError(ClassName, "Failed to close");
         }
