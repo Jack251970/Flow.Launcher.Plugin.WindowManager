@@ -24,6 +24,9 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_restore_title">還原</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_restore_subtitle">還原前景視窗</system:String>
 
+    <system:String x:Key="flowlauncher_plugin_windowmanager_close_title">關閉</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_close_subtitle">關閉前景視窗</system:String>
+
     <system:String x:Key="flowlauncher_plugin_windowmanager_moveup_title">上移</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_moveup_subtitle">將前景視窗移動到其螢幕頂部</system:String>
 

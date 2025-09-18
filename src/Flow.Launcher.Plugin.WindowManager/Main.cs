@@ -74,6 +74,15 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         },
         new()
         {
+            Type = CommandType.Close,
+            TitleKey = "flowlauncher_plugin_windowmanager_close_title",
+            SubtitleKey = "flowlauncher_plugin_windowmanager_close_subtitle",
+            IcoPath = "Images/close.png",
+            CommandAction = () => HandleForForegroundWindowAsync(Close),
+            Keyword = "Close"
+        },
+        new()
+        {
             Type = CommandType.MoveUp,
             TitleKey = "flowlauncher_plugin_windowmanager_moveup_title",
             SubtitleKey = "flowlauncher_plugin_windowmanager_moveup_subtitle",
@@ -445,6 +454,14 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
         if (!PInvoke.ShowWindow(handle, SHOW_WINDOW_CMD.SW_RESTORE))
         {
             Context.API.LogError(ClassName, "Failed to restore");
+        }
+    }
+
+    private static void Close(HWND handle)
+    {
+        if (!PInvoke.PostMessage(handle, WINDOW_MESSAGE.WM_CLOSE, WPARAM.Zero, LPARAM.Zero))
+        {
+            Context.API.LogError(ClassName, "Failed to close");
         }
     }
 

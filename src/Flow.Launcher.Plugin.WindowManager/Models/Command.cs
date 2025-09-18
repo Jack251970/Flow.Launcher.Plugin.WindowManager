@@ -25,6 +25,7 @@ public enum CommandType
     Maximize,
     Minimize,
     Restore,
+    Close,
     MoveUp,
     MoveDown,
     MoveLeft,

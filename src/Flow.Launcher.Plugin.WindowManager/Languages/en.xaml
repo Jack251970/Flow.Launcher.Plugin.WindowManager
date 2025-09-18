@@ -24,6 +24,9 @@
     <system:String x:Key="flowlauncher_plugin_windowmanager_restore_title">Restore</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_restore_subtitle">Restore the foreground window</system:String>
 
+    <system:String x:Key="flowlauncher_plugin_windowmanager_close_title">Close</system:String>
+    <system:String x:Key="flowlauncher_plugin_windowmanager_close_subtitle">Close the foreground window</system:String>
+
     <system:String x:Key="flowlauncher_plugin_windowmanager_moveup_title">Move up</system:String>
     <system:String x:Key="flowlauncher_plugin_windowmanager_moveup_subtitle">Move the foreground window to the top of its screen</system:String>
 
