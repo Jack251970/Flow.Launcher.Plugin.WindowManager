@@ -9,3 +9,6 @@ GetWindowRect
 SetWindowPos
 ShowWindow
 IsZoomed
+
+SendMessage
+WM_CLOSE
