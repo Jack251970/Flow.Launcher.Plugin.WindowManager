@@ -1,7 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Text.Json;
 using Cake.Common;
 using Cake.Common.Diagnostics;
 using Cake.Common.IO;
@@ -14,6 +10,10 @@ using Cake.Core;
 using Cake.Core.IO;
 using Cake.Frosting;
 using Flow.Launcher.Plugin;
+using System;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
 
 namespace Build;
 

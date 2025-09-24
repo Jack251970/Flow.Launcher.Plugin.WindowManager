@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Windows.Win32;
@@ -978,11 +977,6 @@ public class WindowManager : IPlugin, IPluginI18n, ISettingProvider, IDisposable
     public string GetTranslatedPluginDescription()
     {
         return Context.API.GetTranslation("flowlauncher_plugin_windowmanager_plugin_description");
-    }
-
-    public void OnCultureInfoChanged(CultureInfo cultureInfo)
-    {
-
     }
 
     #endregion
