@@ -405,5 +405,10 @@ public class TestHelper
         {
             throw new NotImplementedException();
         }
+
+        public List<PluginPair> GetAllInitializedPlugins(bool includeFailed)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
