@@ -54,7 +54,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.10.1">
+    <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.11.0">
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
   </ItemGroup>
